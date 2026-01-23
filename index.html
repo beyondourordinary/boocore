@@ -58,7 +58,6 @@
       to  { transform: translate3d(6px, -6px, 0); opacity:0.86; }
     }
 
-    /* Optional ghost background image (if boo-ghost.png exists) */
     .watermark{
       position: fixed;
       inset: 0;
@@ -201,7 +200,7 @@
   <div class="top">
     <div>
       <h1 class="title">BOOCore</h1>
-      <div class="sub">Auto-trigger mode · Random 10–45s · Field Test Build</div>
+      <div class="sub">Ambient mode · Random intervals · Field test build</div>
     </div>
     <div class="tag">BOO</div>
   </div>
@@ -209,7 +208,7 @@
   <div class="card">
     <div class="label">Current word</div>
     <div id="word" class="word">—</div>
-    <div id="status" class="status">Waiting for first trigger…</div>
+    <div id="status" class="status">Waiting…</div>
   </div>
 
   <div class="card">
@@ -219,12 +218,6 @@
 </div>
 
 <script>
-/* ===========================
-   BOOCore – AUTO TRIGGER LOGIC
-   Random delay between 10–45s
-   Reshuffle + random pick each trigger
-   =========================== */
-
 let WORDS = [];
 let lastWord = null;
 
@@ -252,9 +245,9 @@ function pickWord(){
   if(!WORDS.length) return "—";
   let chosen=null, attempts=0;
   while(attempts<5){
-    const shuffled = shuffleArray(WORDS); // reshuffle each time
+    const shuffled = shuffleArray(WORDS);
     chosen = shuffled[Math.floor(Math.random()*shuffled.length)];
-    if(chosen !== lastWord) break;        // avoid immediate repeat
+    if(chosen !== lastWord) break;
     attempts++;
   }
   lastWord = chosen;
@@ -275,7 +268,7 @@ function renderHistory(){
   });
 }
 
-function triggerWord(source="Ambient"){
+function triggerWord(){
   const w = pickWord();
   wordEl.textContent = w;
   wordEl.classList.remove("glitch");
@@ -283,7 +276,7 @@ function triggerWord(source="Ambient"){
   wordEl.classList.add("glitch");
 
   const t = new Date().toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});
-  statusEl.textContent = `${source} • ${t}`;
+  statusEl.textContent = `Triggered • ${t}`;
 
   navigator.vibrate?.(80);
 
@@ -297,12 +290,11 @@ function scheduleNextTrigger(){
   const delaySeconds =
     Math.floor(Math.random() * (MAX_DELAY - MIN_DELAY + 1)) + MIN_DELAY;
 
-  statusEl.textContent = `Next trigger in ~${delaySeconds}s`;
-
   clearTimeout(autoTimer);
+
   autoTimer = setTimeout(() => {
-    triggerWord("Ambient");
-    scheduleNextTrigger(); // schedule again with a new random delay
+    triggerWord();
+    scheduleNextTrigger();
   }, delaySeconds * 1000);
 }
 
@@ -314,7 +306,7 @@ async function loadWords(){
       .map(l=>l.trim())
       .filter(l=>l && !l.startsWith("#"));
   }catch{
-    WORDS=["hello","wait","listen","stop","behind you"];
+    WORDS=["hello","wait","listen","stop","behind"];
   }
 }
 
