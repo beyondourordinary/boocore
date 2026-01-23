@@ -16,80 +16,217 @@
 
   <style>
     :root{
-      --bg:#000;
-      --card:rgba(255,255,255,0.06);
-      --border:rgba(255,255,255,0.14);
-      --muted:rgba(255,255,255,0.7);
-      --accent:#FAFF00;
+      --bg:#050505;
+      --panel: rgba(20,20,20,0.62);
+      --panel2: rgba(10,10,10,0.55);
+      --border: rgba(255,255,255,0.10);
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.60);
+      --boo: #FAFF00;
+      --shadow: 0 16px 60px rgba(0,0,0,0.55);
+      --radius: 22px;
     }
-    *{box-sizing:border-box}
+
+    *{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+    html, body { height:100%; }
+
     body{
       margin:0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      background: radial-gradient(1200px 600px at 50% -10%, rgba(250,255,0,0.12), transparent 60%), var(--bg);
-      color:#fff;
+      color: var(--text);
+      background:
+        radial-gradient(900px 600px at 50% -10%, rgba(250,255,0,0.10), transparent 55%),
+        radial-gradient(700px 500px at 10% 30%, rgba(250,255,0,0.05), transparent 60%),
+        linear-gradient(180deg, #050505 0%, #000 100%);
+      overflow-x:hidden;
     }
-    .wrap{padding:18px; max-width:760px; margin:0 auto;}
-    h1{margin:0; font-size:28px;}
-    .badge{font-size:12px; color:var(--muted);}
+
+    .atmo{
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(900px 600px at 70% 20%, rgba(255,255,255,0.05), transparent 60%),
+        radial-gradient(700px 500px at 20% 60%, rgba(255,255,255,0.035), transparent 60%),
+        radial-gradient(800px 600px at 60% 90%, rgba(250,255,0,0.03), transparent 65%);
+      filter: blur(6px);
+      opacity: 0.8;
+      animation: drift 10s ease-in-out infinite alternate;
+    }
+    @keyframes drift{
+      from{ transform: translate3d(-6px, 0, 0); opacity:0.72; }
+      to  { transform: translate3d(6px, -6px, 0); opacity:0.86; }
+    }
+
+    .watermark{
+      position: fixed;
+      inset: 0;
+      pointer-events:none;
+      background-image: url("./logo.png");
+      background-repeat: no-repeat;
+      background-position: center top;
+      background-size: 520px auto;
+      opacity: 0.08;
+      transform: translateY(30px);
+    }
+
+    .wrap{
+      padding: 18px;
+      max-width: 860px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .top{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:12px;
+      margin-top: 6px;
+    }
+
+    .title{
+      margin:0;
+      font-size: 30px;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+    }
+
+    .sub{
+      margin-top: 4px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .tag{
+      font-size: 12px;
+      color: rgba(0,0,0,0.92);
+      background: rgba(250,255,0,0.9);
+      padding: 8px 10px;
+      border-radius: 999px;
+      box-shadow: 0 10px 30px rgba(250,255,0,0.16);
+      font-weight: 800;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+
     .card{
-      margin-top:14px;
-      padding:16px;
-      border-radius:18px;
-      background:var(--card);
-      border:1px solid var(--border);
+      margin-top: 14px;
+      padding: 16px;
+      border-radius: var(--radius);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
       backdrop-filter: blur(10px);
     }
-    .label{font-size:12px; color:var(--muted);}
+
+    .label{
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
     .word{
-      font-size:44px;
-      font-weight:900;
-      letter-spacing:0.8px;
-      margin-top:6px;
-      text-transform:uppercase;
-      text-shadow:0 0 18px rgba(250,255,0,0.1);
-      word-break:break-word;
+      margin-top: 8px;
+      font-size: 52px;
+      font-weight: 950;
+      letter-spacing: 1px;
+      line-height: 1.02;
+      text-transform: uppercase;
+      text-shadow: 0 0 22px rgba(250,255,0,0.12);
+      word-break: break-word;
     }
-    .status{margin-top:8px; font-size:13px; color:var(--muted);}
-    .row{display:flex; gap:10px; margin-top:12px; flex-wrap:wrap;}
+
+    .status{
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .row{
+      display:flex;
+      gap: 12px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
     button{
-      flex:1 1 200px;
-      padding:14px;
-      border-radius:16px;
-      border:1px solid var(--border);
-      background:rgba(255,255,255,0.08);
-      color:#fff;
-      font-size:16px;
-      font-weight:700;
+      flex: 1 1 220px;
+      padding: 16px 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.06));
+      color: rgba(255,255,255,0.92);
+      font-size: 16px;
+      font-weight: 850;
+      letter-spacing: 0.3px;
     }
-    .history{list-style:none; padding:0; margin:0;}
+
+    button.primary{
+      border: 1px solid rgba(250,255,0,0.22);
+      background: linear-gradient(180deg, rgba(250,255,0,0.22), rgba(255,255,255,0.06));
+      box-shadow: 0 18px 50px rgba(250,255,0,0.06);
+    }
+
+    button:active{ transform: scale(0.99); }
+
+    .history{
+      list-style:none;
+      padding:0;
+      margin: 10px 0 0;
+    }
+
     .history li{
-      margin-top:10px;
-      padding:10px 12px;
-      border-radius:14px;
-      background:rgba(0,0,0,0.25);
-      border:1px solid rgba(255,255,255,0.1);
+      margin-top: 10px;
+      padding: 12px 14px;
+      border-radius: 18px;
+      background: var(--panel2);
+      border: 1px solid rgba(255,255,255,0.08);
       display:flex;
       justify-content:space-between;
-      font-size:14px;
+      align-items:center;
+      gap:12px;
     }
-    .t{font-size:12px; color:var(--muted);}
-    .glitch{animation:glitch 280ms steps(2,end) 2;}
+
+    .hword{
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .time{
+      font-size: 12px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .glitch{
+      animation: glitch 240ms steps(2,end) 2;
+    }
     @keyframes glitch{
-      0%{transform:translate(0)}
-      20%{transform:translate(-1px,1px)}
-      40%{transform:translate(2px,-1px)}
-      60%{transform:translate(-2px,0)}
-      80%{transform:translate(1px,-2px)}
-      100%{transform:translate(0)}
+      0%{ transform: translate(0,0); }
+      20%{ transform: translate(-2px, 1px); }
+      40%{ transform: translate(2px, -1px); }
+      60%{ transform: translate(-2px, 0px); }
+      80%{ transform: translate(1px, -2px); }
+      100%{ transform: translate(0,0); }
     }
   </style>
 </head>
 
 <body>
+<div class="atmo"></div>
+<div class="watermark"></div>
+
 <div class="wrap">
-  <h1>BOOCore</h1>
-  <div class="badge">Safari-first · Field Test Build</div>
+  <div class="top">
+    <div>
+      <h1 class="title">BOOCore</h1>
+      <div class="sub">Safari-first · Ghostglide · Field Test Build</div>
+    </div>
+    <div class="tag">BOO</div>
+  </div>
 
   <div class="card">
     <div class="label">Current word</div>
@@ -97,7 +234,7 @@
     <div id="status" class="status">Idle</div>
 
     <div class="row">
-      <button id="triggerBtn">Trigger Word</button>
+      <button id="triggerBtn" class="primary">Trigger Word</button>
       <button id="clearBtn">Clear History</button>
     </div>
   </div>
@@ -131,9 +268,9 @@ function pickWord(){
   if(!WORDS.length) return "—";
   let chosen=null, attempts=0;
   while(attempts<5){
-    const shuffled = shuffleArray(WORDS);               // reshuffle
-    chosen = shuffled[Math.floor(Math.random()*shuffled.length)]; // random pick
-    if(chosen!==lastWord) break;                        // avoid immediate repeat
+    const shuffled = shuffleArray(WORDS);
+    chosen = shuffled[Math.floor(Math.random()*shuffled.length)];
+    if(chosen!==lastWord) break;
     attempts++;
   }
   lastWord = chosen;
@@ -161,12 +298,12 @@ function renderHistory(){
   const h = JSON.parse(localStorage.getItem(HISTORY_KEY)||"[]");
   historyEl.innerHTML = "";
   if(!h.length){
-    historyEl.innerHTML = `<li><span>—</span><span class="t">No history</span></li>`;
+    historyEl.innerHTML = `<li><span class="hword">—</span><span class="time">No history</span></li>`;
     return;
   }
   h.slice(0,MAX_HISTORY).forEach(i=>{
     const li=document.createElement("li");
-    li.innerHTML=`<span><b>${i.word}</b></span><span class="t">${i.time}</span>`;
+    li.innerHTML=`<span class="hword">${i.word}</span><span class="time">${i.time}</span>`;
     historyEl.appendChild(li);
   });
 }
