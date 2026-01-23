@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#000000" />
+
+  <!-- iOS App Mode -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="BOOCore" />
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <title>BOOCore</title>
+
+  <style>
+    :root{
+      --bg:#000;
+      --card:rgba(255,255,255,0.06);
+      --border:rgba(255,255,255,0.14);
+      --muted:rgba(255,255,255,0.7);
+      --accent:#FAFF00;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background: radial-gradient(1200px 600px at 50% -10%, rgba(250,255,0,0.12), transparent 60%), var(--bg);
+      color:#fff;
+    }
+    .wrap{padding:18px; max-width:760px; margin:0 auto;}
+    h1{margin:0; font-size:28px;}
+    .badge{font-size:12px; color:var(--muted);}
+    .card{
+      margin-top:14px;
+      padding:16px;
+      border-radius:18px;
+      background:var(--card);
+      border:1px solid var(--border);
+      backdrop-filter: blur(10px);
+    }
+    .label{font-size:12px; color:var(--muted);}
+    .word{
+      font-size:44px;
+      font-weight:900;
+      letter-spacing:0.8px;
+      margin-top:6px;
+      text-transform:uppercase;
+      text-shadow:0 0 18px rgba(250,255,0,0.1);
+      word-break:break-word;
+    }
+    .status{margin-top:8px; font-size:13px; color:var(--muted);}
+    .row{display:flex; gap:10px; margin-top:12px; flex-wrap:wrap;}
+    button{
+      flex:1 1 200px;
+      padding:14px;
+      border-radius:16px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,0.08);
+      color:#fff;
+      font-size:16px;
+      font-weight:700;
+    }
+    .history{list-style:none; padding:0; margin:0;}
+    .history li{
+      margin-top:10px;
+      padding:10px 12px;
+      border-radius:14px;
+      background:rgba(0,0,0,0.25);
+      border:1px solid rgba(255,255,255,0.1);
+      display:flex;
+      justify-content:space-between;
+      font-size:14px;
+    }
+    .t{font-size:12px; color:var(--muted);}
+    .glitch{animation:glitch 280ms steps(2,end) 2;}
+    @keyframes glitch{
+      0%{transform:translate(0)}
+      20%{transform:translate(-1px,1px)}
+      40%{transform:translate(2px,-1px)}
+      60%{transform:translate(-2px,0)}
+      80%{transform:translate(1px,-2px)}
+      100%{transform:translate(0)}
+    }
+  </style>
+</head>
+
+<body>
+<div class="wrap">
+  <h1>BOOCore</h1>
+  <div class="badge">Safari-first · Field Test Build</div>
+
+  <div class="card">
+    <div class="label">Current word</div>
+    <div id="word" class="word">—</div>
+    <div id="status" class="status">Idle</div>
+
+    <div class="row">
+      <button id="triggerBtn">Trigger Word</button>
+      <button id="clearBtn">Clear History</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="label">Recent history</div>
+    <ul id="history" class="history"></ul>
+  </div>
+</div>
+
+<script>
+let WORDS = [];
+let lastWord = null;
+const HISTORY_KEY = "boocore_history_v1";
+const MAX_HISTORY = 7;
+
+const wordEl = document.getElementById("word");
+const statusEl = document.getElementById("status");
+const historyEl = document.getElementById("history");
+
+function shuffleArray(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+function pickWord(){
+  if(!WORDS.length) return "—";
+  let chosen=null, attempts=0;
+  while(attempts<5){
+    const shuffled = shuffleArray(WORDS);               // reshuffle
+    chosen = shuffled[Math.floor(Math.random()*shuffled.length)]; // random pick
+    if(chosen!==lastWord) break;                        // avoid immediate repeat
+    attempts++;
+  }
+  lastWord = chosen;
+  return chosen;
+}
+
+function triggerWord(source="Triggered"){
+  const w = pickWord();
+  wordEl.textContent = w;
+  wordEl.classList.remove("glitch");
+  void wordEl.offsetWidth;
+  wordEl.classList.add("glitch");
+
+  const t = new Date().toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});
+  statusEl.textContent = `${source} • ${t}`;
+  navigator.vibrate?.(80);
+
+  const h = JSON.parse(localStorage.getItem(HISTORY_KEY)||"[]");
+  h.unshift({word:w,time:t});
+  localStorage.setItem(HISTORY_KEY, JSON.stringify(h.slice(0,30)));
+  renderHistory();
+}
+
+function renderHistory(){
+  const h = JSON.parse(localStorage.getItem(HISTORY_KEY)||"[]");
+  historyEl.innerHTML = "";
+  if(!h.length){
+    historyEl.innerHTML = `<li><span>—</span><span class="t">No history</span></li>`;
+    return;
+  }
+  h.slice(0,MAX_HISTORY).forEach(i=>{
+    const li=document.createElement("li");
+    li.innerHTML=`<span><b>${i.word}</b></span><span class="t">${i.time}</span>`;
+    historyEl.appendChild(li);
+  });
+}
+
+document.getElementById("triggerBtn").onclick=()=>triggerWord("Triggered");
+document.getElementById("clearBtn").onclick=()=>{
+  localStorage.removeItem(HISTORY_KEY);
+  renderHistory();
+  statusEl.textContent="Idle • History cleared";
+};
+
+async function loadWords(){
+  try{
+    const r = await fetch("./words.txt", {cache:"no-store"});
+    WORDS = (await r.text()).split(/\r?\n/).map(l=>l.trim()).filter(l=>l && !l.startsWith("#"));
+  }catch{
+    WORDS=["hello","wait","listen","stop","behind you"];
+  }
+}
+
+(async function init(){
+  renderHistory();
+  await loadWords();
+  if("serviceWorker" in navigator){
+    navigator.serviceWorker.register("./service-worker.js");
+  }
+})();
+</script>
+</body>
+</html>
