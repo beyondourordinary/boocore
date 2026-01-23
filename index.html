@@ -130,19 +130,21 @@ body{
 }
 
 .cta{
-  padding:16px 28px;
+  max-width: 320px;
+  padding:14px 20px;
   border-radius:18px;
   border:2px solid rgba(250,255,0,0.6);
   background:rgba(0,0,0,0.45);
+
   color:var(--boo);
-  font-weight:900;
-  letter-spacing:2px;
+  font-weight:800;
+  font-size:13px;              /* 👈 smaller text */
+  letter-spacing:1px;          /* 👈 tighter spacing */
   text-transform:uppercase;
   text-decoration:none;
-}
-.cta:active{
-  transform:scale(0.96);
-  box-shadow:0 0 20px rgba(250,255,0,0.35);
+
+  text-align:center;           /* 👈 central wrap */
+  line-height:1.4;             /* 👈 nice multi-line spacing */
 }
 
 /* ===== CENTRE ===== */
