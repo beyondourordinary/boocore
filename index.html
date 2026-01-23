@@ -17,13 +17,13 @@
   <style>
     :root{
       --bg:#050505;
-      --panel: rgba(20,20,20,0.62);
+      --panel: rgba(20,20,20,0.65);
       --panel2: rgba(10,10,10,0.55);
-      --border: rgba(255,255,255,0.10);
-      --text: rgba(255,255,255,0.92);
-      --muted: rgba(255,255,255,0.60);
+      --border: rgba(255,255,255,0.12);
+      --text: rgba(255,255,255,0.95);
+      --muted: rgba(255,255,255,0.55);
       --boo: #FAFF00;
-      --shadow: 0 16px 60px rgba(0,0,0,0.55);
+      --shadow: 0 18px 70px rgba(0,0,0,0.65);
       --radius: 22px;
     }
 
@@ -35,12 +35,13 @@
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
       color: var(--text);
       background:
-        radial-gradient(900px 600px at 50% -10%, rgba(250,255,0,0.10), transparent 55%),
-        radial-gradient(700px 500px at 10% 30%, rgba(250,255,0,0.05), transparent 60%),
+        radial-gradient(900px 600px at 50% -10%, rgba(250,255,0,0.12), transparent 55%),
+        radial-gradient(700px 500px at 10% 30%, rgba(250,255,0,0.06), transparent 60%),
         linear-gradient(180deg, #050505 0%, #000 100%);
       overflow-x:hidden;
     }
 
+    /* Atmospheric movement */
     .atmo{
       position: fixed;
       inset: 0;
@@ -50,14 +51,15 @@
         radial-gradient(700px 500px at 20% 60%, rgba(255,255,255,0.035), transparent 60%),
         radial-gradient(800px 600px at 60% 90%, rgba(250,255,0,0.03), transparent 65%);
       filter: blur(6px);
-      opacity: 0.8;
-      animation: drift 10s ease-in-out infinite alternate;
+      opacity: 0.85;
+      animation: drift 12s ease-in-out infinite alternate;
     }
     @keyframes drift{
-      from{ transform: translate3d(-6px, 0, 0); opacity:0.72; }
-      to  { transform: translate3d(6px, -6px, 0); opacity:0.86; }
+      from{ transform: translate3d(-6px, 0, 0); }
+      to  { transform: translate3d(6px, -6px, 0); }
     }
 
+    /* BOO ghost watermark */
     .watermark{
       position: fixed;
       inset: 0;
@@ -67,10 +69,10 @@
         radial-gradient(700px 500px at 20% 70%, rgba(255,255,255,0.04), transparent 65%),
         url("./boo-ghost.png");
       background-repeat: no-repeat;
-      background-position: center top, center center, center 80px;
+      background-position: center top, center center, center 90px;
       background-size: cover, cover, 520px auto;
       opacity: 0.12;
-      filter: blur(0.3px);
+      filter: blur(0.4px);
       transform: translateY(20px);
     }
 
@@ -85,38 +87,29 @@
       display:flex;
       align-items:flex-end;
       justify-content:space-between;
-      gap:12px;
-      margin-top: 6px;
+      margin-bottom: 6px;
     }
 
     .title{
       margin:0;
       font-size: 30px;
-      letter-spacing: 0.6px;
+      letter-spacing: 0.8px;
       text-transform: uppercase;
-    }
-
-    .sub{
-      margin-top: 4px;
-      font-size: 12px;
-      color: var(--muted);
     }
 
     .tag{
       font-size: 12px;
-      color: rgba(0,0,0,0.92);
-      background: rgba(250,255,0,0.9);
-      padding: 8px 10px;
+      color: #000;
+      background: var(--boo);
+      padding: 8px 12px;
       border-radius: 999px;
-      box-shadow: 0 10px 30px rgba(250,255,0,0.16);
-      font-weight: 800;
-      letter-spacing: 0.4px;
-      text-transform: uppercase;
+      font-weight: 900;
+      letter-spacing: 0.6px;
     }
 
     .card{
       margin-top: 14px;
-      padding: 16px;
+      padding: 18px;
       border-radius: var(--radius);
       background: var(--panel);
       border: 1px solid var(--border);
@@ -124,29 +117,63 @@
       backdrop-filter: blur(10px);
     }
 
+    .card.hero{
+      border: 1px solid rgba(250,255,0,0.22);
+      background:
+        radial-gradient(700px 260px at 50% 0%, rgba(250,255,0,0.12), transparent 65%),
+        var(--panel);
+    }
+
     .label{
       font-size: 12px;
       color: var(--muted);
+      letter-spacing: 0.6px;
       text-transform: uppercase;
-      letter-spacing: 0.4px;
     }
 
     .word{
-      margin-top: 8px;
-      font-size: 52px;
+      margin-top: 10px;
+      font-size: 56px;
       font-weight: 950;
-      letter-spacing: 1px;
+      letter-spacing: 1.2px;
       line-height: 1.02;
       text-transform: uppercase;
-      text-shadow: 0 0 22px rgba(250,255,0,0.12);
+      text-shadow: 0 0 26px rgba(250,255,0,0.16);
       word-break: break-word;
     }
 
     .status{
-      margin-top: 10px;
+      margin-top: 12px;
       font-size: 13px;
       color: var(--muted);
     }
+
+    .controls{
+      display:flex;
+      gap: 12px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn{
+      padding: 14px 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.06));
+      color: rgba(255,255,255,0.95);
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+
+    .btn.primary{
+      border: 1px solid rgba(250,255,0,0.28);
+      background: linear-gradient(180deg, rgba(250,255,0,0.18), rgba(255,255,255,0.05));
+      box-shadow: 0 18px 50px rgba(250,255,0,0.10);
+    }
+
+    .btn:active{ transform: scale(0.98); }
 
     .history{
       list-style:none;
@@ -169,7 +196,7 @@
     .hword{
       font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: 0.4px;
+      letter-spacing: 0.5px;
     }
 
     .time{
@@ -179,7 +206,7 @@
     }
 
     .glitch{
-      animation: glitch 240ms steps(2,end) 2;
+      animation: glitch 260ms steps(2,end) 2;
     }
     @keyframes glitch{
       0%{ transform: translate(0,0); }
@@ -198,20 +225,23 @@
 
 <div class="wrap">
   <div class="top">
-    <div>
-      <h1 class="title">BOOCore</h1>
-    </div>
+    <h1 class="title">BOOCore</h1>
     <div class="tag">BOO</div>
   </div>
 
-  <div class="card">
-    <div class="label">Current word</div>
+  <div class="card hero">
+    <div class="label">Current</div>
     <div id="word" class="word">—</div>
+
+    <div class="controls">
+      <button id="clearBtn" class="btn primary">Clear History</button>
+    </div>
+
     <div id="status" class="status">Waiting…</div>
   </div>
 
   <div class="card">
-    <div class="label">Recent history</div>
+    <div class="label">History</div>
     <ul id="history" class="history"></ul>
   </div>
 </div>
@@ -224,8 +254,8 @@ const HISTORY_KEY = "boocore_history_v1";
 const MAX_HISTORY = 7;
 
 let autoTimer = null;
-const MIN_DELAY = 10; // seconds
-const MAX_DELAY = 45; // seconds
+const MIN_DELAY = 10;
+const MAX_DELAY = 45;
 
 const wordEl = document.getElementById("word");
 const statusEl = document.getElementById("status");
@@ -257,7 +287,7 @@ function renderHistory(){
   const h = JSON.parse(localStorage.getItem(HISTORY_KEY)||"[]");
   historyEl.innerHTML = "";
   if(!h.length){
-    historyEl.innerHTML = `<li><span class="hword">—</span><span class="time">No history</span></li>`;
+    historyEl.innerHTML = `<li><span class="hword">EMPTY</span><span class="time">—</span></li>`;
     return;
   }
   h.slice(0,MAX_HISTORY).forEach(i=>{
@@ -290,12 +320,17 @@ function scheduleNextTrigger(){
     Math.floor(Math.random() * (MAX_DELAY - MIN_DELAY + 1)) + MIN_DELAY;
 
   clearTimeout(autoTimer);
-
   autoTimer = setTimeout(() => {
     triggerWord();
     scheduleNextTrigger();
   }, delaySeconds * 1000);
 }
+
+document.getElementById("clearBtn").onclick = () => {
+  localStorage.removeItem(HISTORY_KEY);
+  renderHistory();
+  statusEl.textContent = "History cleared";
+};
 
 async function loadWords(){
   try{
