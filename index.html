@@ -58,16 +58,21 @@
       to  { transform: translate3d(6px, -6px, 0); opacity:0.86; }
     }
 
+    /* Optional ghost background image (if boo-ghost.png exists) */
     .watermark{
       position: fixed;
       inset: 0;
-      pointer-events:none;
-      background-image: url("./logo.png");
+      pointer-events: none;
+      background-image:
+        radial-gradient(900px 600px at 50% 10%, rgba(250,255,0,0.10), transparent 60%),
+        radial-gradient(700px 500px at 20% 70%, rgba(255,255,255,0.04), transparent 65%),
+        url("./boo-ghost.png");
       background-repeat: no-repeat;
-      background-position: center top;
-      background-size: 520px auto;
-      opacity: 0.08;
-      transform: translateY(30px);
+      background-position: center top, center center, center 80px;
+      background-size: cover, cover, 520px auto;
+      opacity: 0.12;
+      filter: blur(0.3px);
+      transform: translateY(20px);
     }
 
     .wrap{
@@ -144,33 +149,6 @@
       color: var(--muted);
     }
 
-    .row{
-      display:flex;
-      gap: 12px;
-      margin-top: 14px;
-      flex-wrap: wrap;
-    }
-
-    button{
-      flex: 1 1 220px;
-      padding: 16px 14px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.06));
-      color: rgba(255,255,255,0.92);
-      font-size: 16px;
-      font-weight: 850;
-      letter-spacing: 0.3px;
-    }
-
-    button.primary{
-      border: 1px solid rgba(250,255,0,0.22);
-      background: linear-gradient(180deg, rgba(250,255,0,0.22), rgba(255,255,255,0.06));
-      box-shadow: 0 18px 50px rgba(250,255,0,0.06);
-    }
-
-    button:active{ transform: scale(0.99); }
-
     .history{
       list-style:none;
       padding:0;
@@ -223,7 +201,7 @@
   <div class="top">
     <div>
       <h1 class="title">BOOCore</h1>
-      <div class="sub">Safari-first · Ghostglide · Field Test Build</div>
+      <div class="sub">Auto-trigger mode · Random 10–45s · Field Test Build</div>
     </div>
     <div class="tag">BOO</div>
   </div>
@@ -231,12 +209,7 @@
   <div class="card">
     <div class="label">Current word</div>
     <div id="word" class="word">—</div>
-    <div id="status" class="status">Idle</div>
-
-    <div class="row">
-      <button id="triggerBtn" class="primary">Trigger Word</button>
-      <button id="clearBtn">Clear History</button>
-    </div>
+    <div id="status" class="status">Waiting for first trigger…</div>
   </div>
 
   <div class="card">
@@ -246,10 +219,21 @@
 </div>
 
 <script>
+/* ===========================
+   BOOCore – AUTO TRIGGER LOGIC
+   Random delay between 10–45s
+   Reshuffle + random pick each trigger
+   =========================== */
+
 let WORDS = [];
 let lastWord = null;
+
 const HISTORY_KEY = "boocore_history_v1";
 const MAX_HISTORY = 7;
+
+let autoTimer = null;
+const MIN_DELAY = 10; // seconds
+const MAX_DELAY = 45; // seconds
 
 const wordEl = document.getElementById("word");
 const statusEl = document.getElementById("status");
@@ -268,30 +252,13 @@ function pickWord(){
   if(!WORDS.length) return "—";
   let chosen=null, attempts=0;
   while(attempts<5){
-    const shuffled = shuffleArray(WORDS);
+    const shuffled = shuffleArray(WORDS); // reshuffle each time
     chosen = shuffled[Math.floor(Math.random()*shuffled.length)];
-    if(chosen!==lastWord) break;
+    if(chosen !== lastWord) break;        // avoid immediate repeat
     attempts++;
   }
   lastWord = chosen;
   return chosen;
-}
-
-function triggerWord(source="Triggered"){
-  const w = pickWord();
-  wordEl.textContent = w;
-  wordEl.classList.remove("glitch");
-  void wordEl.offsetWidth;
-  wordEl.classList.add("glitch");
-
-  const t = new Date().toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});
-  statusEl.textContent = `${source} • ${t}`;
-  navigator.vibrate?.(80);
-
-  const h = JSON.parse(localStorage.getItem(HISTORY_KEY)||"[]");
-  h.unshift({word:w,time:t});
-  localStorage.setItem(HISTORY_KEY, JSON.stringify(h.slice(0,30)));
-  renderHistory();
 }
 
 function renderHistory(){
@@ -308,17 +275,44 @@ function renderHistory(){
   });
 }
 
-document.getElementById("triggerBtn").onclick=()=>triggerWord("Triggered");
-document.getElementById("clearBtn").onclick=()=>{
-  localStorage.removeItem(HISTORY_KEY);
+function triggerWord(source="Ambient"){
+  const w = pickWord();
+  wordEl.textContent = w;
+  wordEl.classList.remove("glitch");
+  void wordEl.offsetWidth;
+  wordEl.classList.add("glitch");
+
+  const t = new Date().toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});
+  statusEl.textContent = `${source} • ${t}`;
+
+  navigator.vibrate?.(80);
+
+  const h = JSON.parse(localStorage.getItem(HISTORY_KEY)||"[]");
+  h.unshift({word:w,time:t});
+  localStorage.setItem(HISTORY_KEY, JSON.stringify(h.slice(0,30)));
   renderHistory();
-  statusEl.textContent="Idle • History cleared";
-};
+}
+
+function scheduleNextTrigger(){
+  const delaySeconds =
+    Math.floor(Math.random() * (MAX_DELAY - MIN_DELAY + 1)) + MIN_DELAY;
+
+  statusEl.textContent = `Next trigger in ~${delaySeconds}s`;
+
+  clearTimeout(autoTimer);
+  autoTimer = setTimeout(() => {
+    triggerWord("Ambient");
+    scheduleNextTrigger(); // schedule again with a new random delay
+  }, delaySeconds * 1000);
+}
 
 async function loadWords(){
   try{
     const r = await fetch("./words.txt", {cache:"no-store"});
-    WORDS = (await r.text()).split(/\r?\n/).map(l=>l.trim()).filter(l=>l && !l.startsWith("#"));
+    WORDS = (await r.text())
+      .split(/\r?\n/)
+      .map(l=>l.trim())
+      .filter(l=>l && !l.startsWith("#"));
   }catch{
     WORDS=["hello","wait","listen","stop","behind you"];
   }
@@ -327,6 +321,8 @@ async function loadWords(){
 (async function init(){
   renderHistory();
   await loadWords();
+  scheduleNextTrigger();
+
   if("serviceWorker" in navigator){
     navigator.serviceWorker.register("./service-worker.js");
   }
