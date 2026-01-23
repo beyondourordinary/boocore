@@ -11,8 +11,8 @@
 
 <title>BOOCore</title>
 
-<!-- Ritual / occult font -->
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&display=swap" rel="stylesheet">
+<!-- Barrio font -->
+<link href="https://fonts.googleapis.com/css2?family=Barrio&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -26,7 +26,7 @@
 html,body{
   height:100%;
   margin:0;
-  font-family:'Cinzel', system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  font-family:'Barrio', system-ui, -apple-system, Segoe UI, Roboto, Arial;
 }
 body{background:#000;overflow:hidden;color:var(--white)}
 
@@ -82,7 +82,7 @@ body{background:#000;overflow:hidden;color:var(--white)}
   color:var(--boo);
   font-weight:900;
   letter-spacing:6px;
-  font-size:clamp(28px,6vw,44px); /* 👈 BIGGER */
+  font-size:clamp(30px,6vw,48px);
   text-transform:uppercase;
   text-shadow:0 0 18px rgba(250,255,0,0.25);
 }
@@ -119,7 +119,7 @@ body{background:#000;overflow:hidden;color:var(--white)}
 
 /* === MAIN WORD === */
 .now{
-  font-size:clamp(30px,7vw,56px);
+  font-size:clamp(32px,7vw,58px);
   letter-spacing:5px;
   font-weight:900;
   text-transform:uppercase;
@@ -136,11 +136,11 @@ body{background:#000;overflow:hidden;color:var(--white)}
 @keyframes mistIn{
   0%{
     opacity:0;
-    filter:blur(12px);
+    filter:blur(14px);
     transform:translateY(6px);
   }
   60%{
-    opacity:0.7;
+    opacity:0.75;
     filter:blur(4px);
   }
   100%{
@@ -173,14 +173,14 @@ body{background:#000;overflow:hidden;color:var(--white)}
   color:rgba(255,255,255,0.65);
 }
 
-/* fade older */
-.item:nth-child(1){opacity:.35}
-.item:nth-child(2){opacity:.45}
-.item:nth-child(3){opacity:.55}
+/* fade older (top = newest) */
+.item:nth-child(1){opacity:1}
+.item:nth-child(2){opacity:.85}
+.item:nth-child(3){opacity:.75}
 .item:nth-child(4){opacity:.65}
-.item:nth-child(5){opacity:.75}
-.item:nth-child(6){opacity:.85}
-.item:nth-child(7){opacity:.95}
+.item:nth-child(5){opacity:.55}
+.item:nth-child(6){opacity:.45}
+.item:nth-child(7){opacity:.35}
 
 /* bottom */
 .bottom{
@@ -309,14 +309,12 @@ function history(){return JSON.parse(localStorage.getItem(HISTORY_KEY)||"[]")}
 function save(h){localStorage.setItem(HISTORY_KEY,JSON.stringify(h.slice(0,40)))}
 
 function render(){
-  const h=history().slice(0,7).reverse();
+  const h=history().slice(0,7); // 👈 newest first
   stackEl.innerHTML="";
-  const pad=Array(7).fill("");
-  for(let i=0;i<h.length;i++) pad[7-h.length+i]=h[i].word;
-  pad.forEach(w=>{
+  h.forEach(entry=>{
     const d=document.createElement("div");
     d.className="item";
-    d.textContent=w;
+    d.textContent=entry.word;
     stackEl.appendChild(d);
   });
 }
@@ -331,14 +329,17 @@ function trigger(){
   navigator.vibrate?.(80);
 
   const h=history();
-  h.unshift({word:w,time:Date.now()});
+  h.unshift({word:w,time:Date.now()}); // 👈 newest first
   save(h);
   render();
 }
 
 function schedule(){
   clearTimeout(timer);
-  timer=setTimeout(()=>{trigger();schedule()},(Math.random()*(MAX-MIN)+MIN)*1000);
+  timer=setTimeout(
+    ()=>{trigger();schedule()},
+    (Math.random()*(MAX-MIN)+MIN)*1000
+  );
 }
 
 /* buttons */
@@ -349,8 +350,13 @@ clearHistory.onclick=()=>{localStorage.removeItem(HISTORY_KEY);render();modal.cl
 (async()=>{
   try{
     const r=await fetch("./words.txt",{cache:"no-store"});
-    WORDS=(await r.text()).split(/\r?\n/).map(x=>x.trim()).filter(x=>x);
-  }catch{WORDS=["stay","listen","behind","cellar","window","doom"]}
+    WORDS=(await r.text())
+      .split(/\r?\n/)
+      .map(x=>x.trim())
+      .filter(x=>x);
+  }catch{
+    WORDS=["stay","listen","behind","cellar","window","doom"];
+  }
 
   render();
   schedule();
