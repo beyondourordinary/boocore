@@ -11,6 +11,9 @@
 
 <title>BOOCore</title>
 
+<!-- Ritual / occult font -->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&display=swap" rel="stylesheet">
+
 <style>
 :root{
   --boo:#FAFF00;
@@ -20,7 +23,11 @@
 
 /* RESET */
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial}
+html,body{
+  height:100%;
+  margin:0;
+  font-family:'Cinzel', system-ui, -apple-system, Segoe UI, Roboto, Arial;
+}
 body{background:#000;overflow:hidden;color:var(--white)}
 
 /* ===== BACKGROUND ===== */
@@ -74,9 +81,10 @@ body{background:#000;overflow:hidden;color:var(--white)}
   justify-self:center;
   color:var(--boo);
   font-weight:900;
-  letter-spacing:4px;
-  font-size:20px;
+  letter-spacing:6px;
+  font-size:clamp(28px,6vw,44px); /* 👈 BIGGER */
   text-transform:uppercase;
+  text-shadow:0 0 18px rgba(250,255,0,0.25);
 }
 
 .settings{
@@ -99,28 +107,53 @@ body{background:#000;overflow:hidden;color:var(--white)}
   align-items:center;
   justify-content:center;
   text-align:center;
-  gap:14px;
+  gap:16px;
 }
 
 .current{
   font-size:12px;
-  letter-spacing:2px;
+  letter-spacing:3px;
   text-transform:uppercase;
   color:var(--muted);
 }
 
+/* === MAIN WORD === */
 .now{
-  font-size:clamp(28px,6vw,52px);
-  letter-spacing:3px;
+  font-size:clamp(30px,7vw,56px);
+  letter-spacing:5px;
   font-weight:900;
   text-transform:uppercase;
   color:var(--boo);
+  opacity:0;
+  filter:blur(10px);
+}
+
+/* mist fade-in */
+.mist{
+  animation:mistIn 1.8s ease-out forwards;
+}
+
+@keyframes mistIn{
+  0%{
+    opacity:0;
+    filter:blur(12px);
+    transform:translateY(6px);
+  }
+  60%{
+    opacity:0.7;
+    filter:blur(4px);
+  }
+  100%{
+    opacity:1;
+    filter:blur(0);
+    transform:translateY(0);
+  }
 }
 
 /* history stack */
 .stack{
   width:min(420px,90vw);
-  margin-top:10px;
+  margin-top:14px;
   padding:14px 10px;
   border-radius:18px;
   background:rgba(0,0,0,0.25);
@@ -133,10 +166,10 @@ body{background:#000;overflow:hidden;color:var(--white)}
 
 .item{
   text-align:center;
-  font-weight:900;
-  letter-spacing:2.4px;
+  font-weight:700;
+  letter-spacing:3px;
   text-transform:uppercase;
-  font-size:14px;
+  font-size:13px;
   color:rgba(255,255,255,0.65);
 }
 
@@ -157,37 +190,15 @@ body{background:#000;overflow:hidden;color:var(--white)}
 }
 
 .cta{
-  padding:16px 26px;
+  padding:16px 28px;
   border-radius:18px;
   border:2px solid rgba(250,255,0,0.6);
   background:rgba(0,0,0,0.4);
   color:var(--boo);
-  font-weight:950;
-  letter-spacing:1.8px;
+  font-weight:900;
+  letter-spacing:2px;
   text-transform:uppercase;
   text-decoration:none;
-  display:inline-block;
-}
-
-.cta:active{
-  transform:scale(0.96);
-  box-shadow:0 0 20px rgba(250,255,0,0.35);
-}
-
-/* impact */
-.glitch{animation:glitch .22s steps(2,end) 2}
-@keyframes glitch{
-  0%{transform:translate(0,0)}
-  20%{transform:translate(-2px,1px)}
-  40%{transform:translate(2px,-1px)}
-  60%{transform:translate(-2px,0)}
-  80%{transform:translate(1px,-2px)}
-  100%{transform:translate(0,0)}
-}
-
-.shift{animation:shift .12s ease-out}
-@keyframes shift{
-  50%{transform:translate(-2px,1px)}
 }
 
 /* modal */
@@ -269,7 +280,6 @@ let timer=null;
 
 const nowEl=document.getElementById("now");
 const stackEl=document.getElementById("stack");
-const screen=document.getElementById("screen");
 
 /* settings */
 const modal=document.getElementById("modal");
@@ -312,11 +322,14 @@ function render(){
 }
 
 function trigger(){
-  screen.classList.remove("shift");void screen.offsetWidth;screen.classList.add("shift");
   const w=pick();
   nowEl.textContent=w;
-  nowEl.classList.remove("glitch");void nowEl.offsetWidth;nowEl.classList.add("glitch");
+  nowEl.classList.remove("mist");
+  void nowEl.offsetWidth;
+  nowEl.classList.add("mist");
+
   navigator.vibrate?.(80);
+
   const h=history();
   h.unshift({word:w,time:Date.now()});
   save(h);
