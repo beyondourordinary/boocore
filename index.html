@@ -5,15 +5,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>BOOCORE</title>
 
-  <!-- Google Font (matches the iOS vibe you liked) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barrio&display=swap" rel="stylesheet">
-
-  <!-- Cloudflare Web Analytics (OPTIONAL)
-       Replace XXXXX with your real token when you add analytics -->
-  <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
-          data-cf-beacon='{"token":"XXXXX"}'></script>
 
   <style>
     :root{
@@ -22,16 +16,7 @@
       --line: rgba(255,255,255,0.10);
       --text: rgba(255,255,255,0.88);
     }
-
-    html,body{
-      height:100%;
-      margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      background:#000;
-      color:var(--text);
-    }
-
-    /* Background image (boocore-bg.png must be in repo root) */
+    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:#000;color:var(--text);}
     body{
       background:
         linear-gradient(rgba(0,0,0,0.60), rgba(0,0,0,0.80)),
@@ -41,349 +26,151 @@
       background-repeat:no-repeat;
       overflow:hidden;
     }
-
     .wrap{
       height:100%;
       display:flex;
       flex-direction:column;
       align-items:center;
       justify-content:space-between;
-      padding: max(18px, env(safe-area-inset-top)) 16px max(18px, env(safe-area-inset-bottom));
+      padding:max(18px, env(safe-area-inset-top)) 16px max(18px, env(safe-area-inset-bottom));
       box-sizing:border-box;
       gap:14px;
     }
-
-    .top{
-      width:100%;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      padding-top:4px;
-    }
-
+    .top{width:100%;display:flex;justify-content:center;align-items:center;padding-top:4px;}
     .brand{
-      font-family: "Barrio", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      font-size: 52px;
-      letter-spacing: 2px;
-      color: var(--boo);
-      text-shadow: 0 0 18px rgba(250,255,0,0.22);
-      line-height:1;
-      text-align:center;
-      user-select:none;
+      font-family:"Barrio", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      font-size:52px;letter-spacing:2px;color:var(--boo);
+      text-shadow:0 0 18px rgba(250,255,0,0.22);
+      line-height:1;text-align:center;user-select:none;
     }
-
     .center{
       width:min(520px, 92vw);
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:12px;
-      flex:1;
-      justify-content:flex-start;
+      display:flex;flex-direction:column;align-items:center;gap:12px;
+      flex:1;justify-content:flex-start;
     }
-
     .now{
       width:100%;
-      padding:18px 14px;
-      border-radius:22px;
-      background: var(--glass);
+      padding:18px 14px;border-radius:22px;background:var(--glass);
       border:1px solid var(--line);
-      text-align:center;
-      font-size: 64px;
-      font-weight: 900;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      text-shadow: 0 0 22px rgba(0,0,0,0.65);
-      user-select:none;
-      min-height: 96px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      box-sizing:border-box;
+      text-align:center;font-size:72px;font-weight:900;letter-spacing:2px;text-transform:uppercase;
+      text-shadow:0 0 22px rgba(0,0,0,0.65);
+      user-select:none;min-height:96px;display:flex;align-items:center;justify-content:center;box-sizing:border-box;
     }
-
-    .mist{
-      animation: mistIn 1.2s ease-out both;
-    }
+    .mist{animation:mistIn 1.2s ease-out both;}
     @keyframes mistIn{
-      0%{ opacity:0; filter: blur(12px); transform: translateY(10px) scale(0.985); }
-      60%{ opacity:1; filter: blur(2px); transform: translateY(0) scale(1); }
-      100%{ opacity:1; filter: blur(0px); }
+      0%{opacity:0;filter:blur(12px);transform:translateY(10px) scale(0.985);}
+      60%{opacity:1;filter:blur(2px);transform:translateY(0) scale(1);}
+      100%{opacity:1;filter:blur(0px);}
     }
 
     .stack{
       width:100%;
-      padding:14px 12px;
-      border-radius:22px;
+      padding:14px 12px;border-radius:22px;
       background:rgba(0,0,0,0.18);
       border:1px solid rgba(255,255,255,0.08);
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-
-      max-height:46vh;
-      overflow:auto;
-      -webkit-overflow-scrolling:touch;
-      box-sizing:border-box;
+      display:flex;flex-direction:column;gap:8px;
+      max-height:46vh;overflow:auto;-webkit-overflow-scrolling:touch;box-sizing:border-box;
     }
-
     .row{
-      display:flex;
-      justify-content:space-between;
-      align-items:baseline;
-      gap:12px;
-      padding:10px 12px;
-      border-radius:16px;
-      background: rgba(0,0,0,0.24);
+      display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+      padding:10px 12px;border-radius:16px;
+      background:rgba(0,0,0,0.24);
       border:1px solid rgba(255,255,255,0.06);
     }
-
-    .w{
-      font-weight:900;
-      letter-spacing:1px;
-      text-transform:uppercase;
-      color: rgba(255,255,255,0.92);
-      font-size:16px;
-      flex:1;
-    }
-
-    .t{
-      font-size:12px;
-      color: rgba(255,255,255,0.50);
-      letter-spacing:1px;
-      white-space:nowrap;
-    }
+    .w{font-weight:900;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.92);font-size:16px;flex:1;}
+    .t{font-size:12px;color:rgba(255,255,255,0.50);letter-spacing:1px;white-space:nowrap;}
 
     .bottom{
       width:min(520px, 92vw);
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:10px;
-      padding-bottom:4px;
-      text-align:center;
+      display:flex;flex-direction:column;align-items:center;gap:10px;
+      padding-bottom:4px;text-align:center;
     }
-
-    .controls{
-      display:flex;
-      gap:12px;
-      margin: 4px 0 8px;
-    }
-
+    .controls{display:flex;gap:12px;margin:4px 0 8px;}
     .ctrl{
-      padding:12px 16px;
-      border-radius:16px;
-      border:2px solid rgba(250,255,0,0.25);
-      background:rgba(0,0,0,0.35);
-      color:rgba(250,255,0,0.95);
-      font-weight:900;
-      letter-spacing:2px;
-      text-transform:uppercase;
-      min-width:130px;
-      cursor:pointer;
-      user-select:none;
-      transition: transform .12s ease, border-color .18s ease, box-shadow .18s ease, opacity .18s ease;
+      padding:12px 16px;border-radius:16px;border:2px solid rgba(250,255,0,0.25);
+      background:rgba(0,0,0,0.35);color:rgba(250,255,0,0.95);
+      font-weight:900;letter-spacing:2px;text-transform:uppercase;
+      min-width:130px;cursor:pointer;user-select:none;
+      transition:transform .12s ease,border-color .18s ease,box-shadow .18s ease,opacity .18s ease;
     }
+    .ctrl:disabled{opacity:.35;border-color:rgba(250,255,0,0.12);cursor:not-allowed;}
+    .ctrl:active{transform:scale(0.98);}
 
-    .ctrl:disabled{
-      opacity:.35;
-      border-color:rgba(250,255,0,0.12);
-      cursor:not-allowed;
-    }
-
-    .ctrl:active{
-      transform:scale(0.98);
-    }
-
-    /* Optional “listening” glow */
-    .listening{
-      animation: pulseGlow 1.25s ease-in-out infinite;
-    }
+    .listening{animation:pulseGlow 1.25s ease-in-out infinite;}
     @keyframes pulseGlow{
-      0%,100%{ filter: drop-shadow(0 0 0 rgba(250,255,0,0)); }
-      50%{ filter: drop-shadow(0 0 18px rgba(250,255,0,0.20)); }
+      0%,100%{filter:drop-shadow(0 0 0 rgba(250,255,0,0));}
+      50%{filter:drop-shadow(0 0 18px rgba(250,255,0,0.20));}
     }
 
-    .micline{
-      font-size:12px;
-      opacity:.55;
-      letter-spacing:.5px;
-      margin-top:2px;
-      user-select:none;
-    }
+    .micline{font-size:12px;opacity:.55;letter-spacing:.5px;margin-top:2px;user-select:none;}
 
     .cta{
-      max-width: 360px;
-      width:100%;
-      padding:14px 20px;
-      border-radius:18px;
-      border:2px solid rgba(250,255,0,0.20);
-      background:rgba(0,0,0,0.45);
-      color:var(--boo);
-      font-weight:900;
-      font-size:13px;
-      letter-spacing:1px;
-      text-transform:none;
-      text-decoration:none;
-      text-align:center;
-      line-height:1.35;
-      user-select:none;
-      box-sizing:border-box;
+      max-width:360px;width:100%;
+      padding:14px 20px;border-radius:18px;border:2px solid rgba(250,255,0,0.20);
+      background:rgba(0,0,0,0.45);color:var(--boo);
+      font-weight:900;font-size:13px;letter-spacing:1px;
+      text-decoration:none;text-align:center;line-height:1.35;user-select:none;box-sizing:border-box;
     }
-
-    .cta:active{
-      transform:scale(0.98);
-      box-shadow:0 0 18px rgba(250,255,0,0.18);
-      border-color: rgba(250,255,0,0.55);
-    }
+    .cta:active{transform:scale(0.98);box-shadow:0 0 18px rgba(250,255,0,0.18);border-color:rgba(250,255,0,0.55);}
 
     .ghostbtn{
-      width:100%;
-      max-width:360px;
-      padding:12px 18px;
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,0.12);
-      background:rgba(0,0,0,0.40);
-      color:rgba(255,255,255,0.78);
-      font-weight:800;
-      letter-spacing:1px;
-      text-transform:uppercase;
-      cursor:pointer;
-      user-select:none;
-      box-sizing:border-box;
+      width:100%;max-width:360px;
+      padding:12px 18px;border-radius:18px;border:1px solid rgba(255,255,255,0.12);
+      background:rgba(0,0,0,0.40);color:rgba(255,255,255,0.78);
+      font-weight:800;letter-spacing:1px;text-transform:uppercase;
+      cursor:pointer;user-select:none;box-sizing:border-box;
     }
 
     .footnote{
-      font-size:12px;
-      color:rgba(255,255,255,0.42);
-      letter-spacing:0.5px;
-      text-align:center;
-      max-width:520px;
-      line-height:1.35;
+      font-size:12px;color:rgba(255,255,255,0.42);
+      letter-spacing:0.5px;text-align:center;max-width:520px;line-height:1.35;
     }
 
-    /* ===== LOCK SCREEN ===== */
     .lock{
-      position:fixed;
-      inset:0;
-      z-index:50;
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:22px;
-      background:rgba(0,0,0,0.70);
+      position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;
+      padding:22px;background:rgba(0,0,0,0.70);
     }
-
-    .lock.show{ display:flex; }
-
+    .lock.show{display:flex;}
     .lock-inner{
       width:min(520px, 92vw);
-      border-radius:22px;
-      padding:22px 18px;
-      text-align:center;
+      border-radius:22px;padding:22px 18px;text-align:center;
       background:rgba(0,0,0,0.55);
       border:1px solid rgba(255,255,255,0.12);
       box-shadow:0 0 60px rgba(0,0,0,0.55);
     }
-
     .lock-brand{
       font-family:"Barrio", system-ui;
-      color:var(--boo);
-      letter-spacing:4px;
-      font-weight:900;
-      font-size:34px;
-      text-transform:uppercase;
-      text-shadow:0 0 16px rgba(250,255,0,0.18);
-      margin-bottom:12px;
-      line-height:1;
+      color:var(--boo);letter-spacing:4px;font-weight:900;font-size:34px;
+      text-transform:uppercase;text-shadow:0 0 16px rgba(250,255,0,0.18);
+      margin-bottom:12px;line-height:1;
     }
-
-    .lock-title{
-      font-size:26px;
-      letter-spacing:2px;
-      color:rgba(255,255,255,0.92);
-      font-weight:900;
-      margin-bottom:6px;
-    }
-
-    .lock-sub{
-      color:rgba(255,255,255,0.65);
-      letter-spacing:1px;
-      font-size:14px;
-      line-height:1.4;
-      margin-bottom:16px;
-    }
-
-    .lock-box{
-      margin:0 auto;
-      width:min(420px, 92vw);
-      border-radius:18px;
-      padding:16px;
-      background:rgba(0,0,0,0.40);
-      border:1px solid rgba(255,255,255,0.10);
-      box-sizing:border-box;
-    }
-
+    .lock-title{font-size:26px;letter-spacing:2px;color:rgba(255,255,255,0.92);font-weight:900;margin-bottom:6px;}
+    .lock-sub{color:rgba(255,255,255,0.65);letter-spacing:1px;font-size:14px;line-height:1.4;margin-bottom:16px;}
+    .lock-box{margin:0 auto;width:min(420px, 92vw);border-radius:18px;padding:16px;background:rgba(0,0,0,0.40);border:1px solid rgba(255,255,255,0.10);box-sizing:border-box;}
     .lock-input{
-      width:100%;
-      padding:14px 14px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,0.18);
-      background:rgba(0,0,0,0.55);
-      color:rgba(255,255,255,0.9);
-      text-align:center;
-      letter-spacing:2px;
-      font-weight:800;
-      text-transform:uppercase;
-      outline:none;
-      box-sizing:border-box;
+      width:100%;padding:14px 14px;border-radius:14px;border:1px solid rgba(255,255,255,0.18);
+      background:rgba(0,0,0,0.55);color:rgba(255,255,255,0.9);text-align:center;
+      letter-spacing:2px;font-weight:800;text-transform:uppercase;outline:none;box-sizing:border-box;
     }
-
     .lock-btn{
-      width:100%;
-      margin-top:12px;
-      padding:14px 14px;
-      border-radius:14px;
-      border:2px solid rgba(250,255,0,0.30);
-      background:rgba(0,0,0,0.40);
-      color:var(--boo);
-      font-weight:900;
-      letter-spacing:2px;
-      text-transform:uppercase;
-      cursor:pointer;
-      user-select:none;
-      box-sizing:border-box;
+      width:100%;margin-top:12px;padding:14px 14px;border-radius:14px;
+      border:2px solid rgba(250,255,0,0.30);background:rgba(0,0,0,0.40);color:var(--boo);
+      font-weight:900;letter-spacing:2px;text-transform:uppercase;cursor:pointer;user-select:none;box-sizing:border-box;
     }
-
-    .lock-msg{
-      margin-top:10px;
-      min-height:20px;
-      font-size:13px;
-      letter-spacing:1px;
-      color:rgba(255,255,255,0.70);
-    }
-    .lock-msg.bad{ color:rgba(255,120,120,0.95); }
-    .lock-msg.good{ color:rgba(250,255,0,0.95); }
-
+    .lock-msg{margin-top:10px;min-height:20px;font-size:13px;letter-spacing:1px;color:rgba(255,255,255,0.70);}
+    .lock-msg.bad{color:rgba(255,120,120,0.95);}
+    .lock-msg.good{color:rgba(250,255,0,0.95);}
     .lock-link{
-      display:inline-block;
-      margin-top:10px;
-      font-size:13px;
-      letter-spacing:1px;
-      color:rgba(255,255,255,0.70);
-      text-decoration:none;
-      border-bottom:1px solid rgba(255,255,255,0.25);
-      padding-bottom:3px;
-      user-select:none;
+      display:inline-block;margin-top:10px;font-size:13px;letter-spacing:1px;
+      color:rgba(255,255,255,0.70);text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.25);
+      padding-bottom:3px;user-select:none;
     }
   </style>
 </head>
 
 <body>
   <div class="wrap">
-    <div class="top">
-      <div class="brand">BOOCORE</div>
-    </div>
+    <div class="top"><div class="brand">BOOCORE</div></div>
 
     <div class="center">
       <div id="now" class="now">—</div>
@@ -410,7 +197,6 @@
     </div>
   </div>
 
-  <!-- ACCESS LOCK -->
   <div class="lock" id="lockScreen" aria-hidden="true">
     <div class="lock-inner">
       <div class="lock-brand">BOOCORE</div>
@@ -418,17 +204,9 @@
       <div class="lock-sub">Enter your investigation code to begin.</div>
 
       <div class="lock-box">
-        <input
-          id="codeInput"
-          class="lock-input"
-          type="text"
-          inputmode="text"
-          autocapitalize="characters"
-          autocomplete="off"
-          autocorrect="off"
-          spellcheck="false"
-          placeholder="ENTER INVESTIGATION CODE"
-        />
+        <input id="codeInput" class="lock-input" type="text" inputmode="text"
+               autocapitalize="characters" autocomplete="off" autocorrect="off" spellcheck="false"
+               placeholder="ENTER INVESTIGATION CODE" />
         <button class="lock-btn" id="activateBtn">ACTIVATE ACCESS</button>
         <div class="lock-msg" id="lockMsg" role="status" aria-live="polite"></div>
       </div>
@@ -439,25 +217,16 @@
     </div>
   </div>
 
-  <!--
-    IMPORTANT:
-    Keep boocore_words_packs.js in the SAME folder as index.html
-    (repo root). This file imports those packs.
-  -->
-  <script type="module">
-    import {
-      CORE_WORDS,
-      PLACES,
-      ENTITIES,
-      ACTIONS_DIRECTIVES,
-      TONE_TRAITS,
-      PHRASES_MANIFESTATIONS,
-      HARD_STOP,
-      NAMES_PROBABLE,
-      COLORS_APPEARANCE,
-      NUMBERS,
-      SINGLE_LETTERS
-    } from "./boocore_words_packs.js";
+  <!-- IMPORTANT: load word packs FIRST (global window.BOOCoreWords) -->
+  <script src="./boocore_words_packs.js"></script>
+
+  <script>
+    // ===== Safety: confirm packs loaded =====
+    if (!window.BOOCoreWords) {
+      alert("Word packs not loaded. Check boocore_words_packs.js is in the same folder as index.html");
+    }
+
+    const PACKS = window.BOOCoreWords || {};
 
     // ===== Elements =====
     const nowEl      = document.getElementById("now");
@@ -477,17 +246,12 @@
     const HIST_KEY   = "boocore_history";
     const ACCESS_KEY = "boocore_expires_at";
 
-    // ===== Helpers =====
     const rand = (a,b)=>Math.random()*(b-a)+a;
-    const now  = ()=>Date.now();
 
     function escapeHtml(s){
       return String(s)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
+        .replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;").replaceAll("'","&#039;");
     }
     function fmtTime(ms){
       const d = new Date(ms);
@@ -533,7 +297,6 @@
       localStorage.setItem(ACCESS_KEY, String(expires));
       return expires;
     }
-    // Accepts: BOO-30-AB12 or BOO-30-AB12-CD34
     function validateCodeTestMode(code){
       const c = code.trim().toUpperCase();
       const pattern = /^BOO-30-[A-Z0-9]{4}(-[A-Z0-9]{4})?$/;
@@ -617,7 +380,7 @@
       analyser=null;
     }
 
-    // ===== Entertainment state machine =====
+    // ===== State machine =====
     const STATE = { IDLE:"IDLE", LISTEN:"LISTEN", HOLD:"HOLD", COOLDOWN:"COOLDOWN" };
     let state = STATE.IDLE;
 
@@ -639,19 +402,13 @@
     const FORCED_SILENCE_MIN_MS = 20_000;
     const FORCED_SILENCE_MAX_MS = 40_000;
 
-    // rare “hard stop” injection + lockout
-    const HARDSTOP_CHANCE = 1/22;        // ~4.5%
+    const HARDSTOP_CHANCE = 1/22;   // ~4.5%
     const HARDSTOP_LOCK_MS = 30_000;
-
-    // optional “names mode / colours / numbers” off by default
-    const ENABLE_NAMES   = false;
-    const ENABLE_COLORS  = false;
-    const ENABLE_NUMBERS = false;
 
     function setState(next){
       state = next;
 
-      const locked = now() < cooldownUntil;
+      const locked = Date.now() < cooldownUntil;
       const accessOk = hasAccess();
 
       if(!accessOk){
@@ -677,11 +434,10 @@
     }
 
     function registerQuestion(){
-      const t = now();
+      const t = Date.now();
       recentQuestionTimes.unshift(t);
       recentQuestionTimes = recentQuestionTimes.filter(x => (t - x) <= CLUSTER_WINDOW_MS);
 
-      // Too many rapid questions => force silence cooldown
       if(recentQuestionTimes.length >= CLUSTER_THRESHOLD){
         const extra = rand(FORCED_SILENCE_MIN_MS, FORCED_SILENCE_MAX_MS);
         cooldownUntil = Math.max(cooldownUntil, t + extra);
@@ -690,55 +446,37 @@
     }
 
     function pickWordWeighted(){
-      // Build a candidate pool each time (keeps it “alive”)
+      const CORE   = PACKS.CORE_WORDS || [];
+      const PLACES = PACKS.PLACES || [];
+      const ENT    = PACKS.ENTITIES || [];
+      const ACT    = PACKS.ACTIONS_DIRECTIVES || [];
+      const TONE   = PACKS.TONE_TRAITS || [];
+      const PHRASE = PACKS.PHRASES_MANIFESTATIONS || [];
+      const HARD   = PACKS.HARD_STOP || [];
+
       let candidates = [];
+      candidates.push(...CORE, ...PLACES);
 
-      // Always: BOOCore spine + places
-      candidates.push(...CORE_WORDS);
-      candidates.push(...PLACES);
+      if(Math.random() < 0.55) candidates.push(...TONE);
+      if(Math.random() < 0.35) candidates.push(...ENT);
+      if(Math.random() < 0.16) candidates.push(...PHRASE);
 
-      // Tone layer (often)
-      if(Math.random() < 0.55) candidates.push(...TONE_TRAITS);
-
-      // Entities (sometimes)
-      if(Math.random() < 0.35) candidates.push(...ENTITIES);
-
-      // Phrases/manifestations (rare “moments”)
-      if(Math.random() < 0.16) candidates.push(...PHRASES_MANIFESTATIONS);
-
-      // Optional modes (off)
-      if(ENABLE_NAMES && Math.random() < 0.18) candidates.push(...NAMES_PROBABLE);
-      if(ENABLE_COLORS && Math.random() < 0.14) candidates.push(...COLORS_APPEARANCE);
-      if(ENABLE_NUMBERS && Math.random() < 0.10){
-        candidates.push(...NUMBERS);
-        candidates.push(...SINGLE_LETTERS);
-      }
-
-      // Behavioural bias:
       const longListen = listenDurationMs > 7000;
       const highEnergy = peakLevel > 0.08 || (heardSomething && listenDurationMs > 2000);
-      const silenceMs  = lastResponseAt ? (now() - lastResponseAt) : 999999;
+      const silenceMs  = lastResponseAt ? (Date.now() - lastResponseAt) : 999999;
 
       if(longListen || silenceMs > 60_000){
-        // More “observational spine” during long listen / silence
-        candidates.push(...CORE_WORDS);
-        candidates.push(...CORE_WORDS);
+        candidates.push(...CORE, ...CORE);
       }
-
       if(highEnergy){
-        // More directives / responses when energy is up
-        candidates.push(...ACTIONS_DIRECTIVES);
-        candidates.push(...ACTIONS_DIRECTIVES);
-        // Occasional punch
-        if(Math.random() < 0.35) candidates.push(...TONE_TRAITS);
+        candidates.push(...ACT, ...ACT);
+        if(Math.random() < 0.35) candidates.push(...TONE);
       }
 
-      // Rare hard stop override
-      if(Math.random() < HARDSTOP_CHANCE){
-        candidates = [...HARD_STOP, ...HARD_STOP, ...CORE_WORDS];
+      if(Math.random() < HARDSTOP_CHANCE && HARD.length){
+        candidates = [...HARD, ...HARD, ...CORE];
       }
 
-      // Choose, avoid repeating last word
       let w = "";
       let guard = 0;
       do{
@@ -752,25 +490,18 @@
 
     function doResponse(word){
       nowEl.textContent = String(word || "—").toUpperCase();
+      nowEl.classList.remove("mist"); void nowEl.offsetWidth; nowEl.classList.add("mist");
 
-      // mist fade
-      nowEl.classList.remove("mist");
-      void nowEl.offsetWidth;
-      nowEl.classList.add("mist");
-
-      // save history (newest at top)
       const h = history();
       h.unshift({ word: String(word || "—"), time: Date.now() });
       saveHistory(h);
-
       render();
-      lastResponseAt = Date.now();
 
-      // gentle haptic if supported
+      lastResponseAt = Date.now();
       navigator.vibrate?.(70);
 
-      // If hard stop word: enforce short lockout
-      if(HARD_STOP.includes(String(word))){
+      const HARD = PACKS.HARD_STOP || [];
+      if(HARD.includes(String(word))){
         cooldownUntil = Math.max(cooldownUntil, Date.now() + HARDSTOP_LOCK_MS);
       }
 
@@ -778,14 +509,13 @@
       setTimeout(()=> setState(STATE.IDLE), 650);
     }
 
-    // ===== Actions =====
     listenBtn.addEventListener("click", async ()=>{
       if(!hasAccess()) return;
-      if(now() < cooldownUntil) return;
+      if(Date.now() < cooldownUntil) return;
 
       setState(STATE.LISTEN);
 
-      listenStartedAt = now();
+      listenStartedAt = Date.now();
       listenDurationMs = 0;
       peakLevel = 0;
       heardSomething = false;
@@ -797,16 +527,15 @@
     stopBtn.addEventListener("click", ()=>{
       if(state !== STATE.LISTEN) return;
 
-      listenDurationMs = now() - listenStartedAt;
+      listenDurationMs = Date.now() - listenStartedAt;
       stopMic();
 
       registerQuestion();
       setState(STATE.HOLD);
 
       const holdMs = rand(HOLD_MIN_MS, HOLD_MAX_MS);
-
       setTimeout(()=>{
-        if(now() < cooldownUntil){
+        if(Date.now() < cooldownUntil){
           setState(STATE.IDLE);
           return;
         }
@@ -817,12 +546,7 @@
 
     // ===== Init =====
     render();
-
-    if(!hasAccess()){
-      showLock();
-    }else{
-      hideLock();
-    }
+    if(!hasAccess()) showLock(); else hideLock();
   </script>
 </body>
 </html>
