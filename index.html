@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>BOOCORE</title>
 
-  <!-- Google Font -->
+  <!-- Google Font (matches the iOS vibe you liked) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barrio&display=swap" rel="stylesheet">
 
-  <!-- 🔍 Cloudflare Web Analytics (OPTIONAL)
-       Replace XXXXX with your real token when you add Cloudflare Analytics -->
+  <!-- Cloudflare Web Analytics (OPTIONAL)
+       Replace XXXXX with your real token when you add analytics -->
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
-          data-cf-beacon='{"token": "XXXXX"}'></script>
+          data-cf-beacon='{"token":"XXXXX"}'></script>
 
   <style>
     :root{
@@ -21,7 +21,6 @@
       --glass: rgba(0,0,0,0.45);
       --line: rgba(255,255,255,0.10);
       --text: rgba(255,255,255,0.88);
-      --muted: rgba(255,255,255,0.62);
     }
 
     html,body{
@@ -35,7 +34,7 @@
     /* Background image (boocore-bg.png must be in repo root) */
     body{
       background:
-        linear-gradient(rgba(0,0,0,0.60), rgba(0,0,0,0.78)),
+        linear-gradient(rgba(0,0,0,0.60), rgba(0,0,0,0.80)),
         url("boocore-bg.png");
       background-size: cover;
       background-position: center;
@@ -54,7 +53,6 @@
       gap:14px;
     }
 
-    /* Top title */
     .top{
       width:100%;
       display:flex;
@@ -65,7 +63,7 @@
 
     .brand{
       font-family: "Barrio", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      font-size: 48px;
+      font-size: 52px;
       letter-spacing: 2px;
       color: var(--boo);
       text-shadow: 0 0 18px rgba(250,255,0,0.22);
@@ -74,7 +72,6 @@
       user-select:none;
     }
 
-    /* Center column */
     .center{
       width:min(520px, 92vw);
       display:flex;
@@ -85,7 +82,6 @@
       justify-content:flex-start;
     }
 
-    /* Current word */
     .now{
       width:100%;
       padding:18px 14px;
@@ -93,20 +89,19 @@
       background: var(--glass);
       border:1px solid var(--line);
       text-align:center;
-      font-size: 58px; /* bigger trigger word */
+      font-size: 64px;
       font-weight: 900;
       letter-spacing: 2px;
       text-transform: uppercase;
       text-shadow: 0 0 22px rgba(0,0,0,0.65);
       user-select:none;
-      min-height: 92px;
+      min-height: 96px;
       display:flex;
       align-items:center;
       justify-content:center;
       box-sizing:border-box;
     }
 
-    /* Mist fade-in effect */
     .mist{
       animation: mistIn 1.2s ease-out both;
     }
@@ -116,12 +111,11 @@
       100%{ opacity:1; filter: blur(0px); }
     }
 
-    /* History */
     .stack{
       width:100%;
       padding:14px 12px;
       border-radius:22px;
-      background:rgba(0,0,0,0.22);
+      background:rgba(0,0,0,0.18);
       border:1px solid rgba(255,255,255,0.08);
       display:flex;
       flex-direction:column;
@@ -140,7 +134,7 @@
       gap:12px;
       padding:10px 12px;
       border-radius:16px;
-      background: rgba(0,0,0,0.28);
+      background: rgba(0,0,0,0.24);
       border:1px solid rgba(255,255,255,0.06);
     }
 
@@ -160,7 +154,6 @@
       white-space:nowrap;
     }
 
-    /* Bottom area */
     .bottom{
       width:min(520px, 92vw);
       display:flex;
@@ -171,11 +164,10 @@
       text-align:center;
     }
 
-    /* LISTEN / STOP moved above shop link */
     .controls{
       display:flex;
       gap:12px;
-      margin: 4px 0 12px;
+      margin: 4px 0 8px;
     }
 
     .ctrl{
@@ -203,7 +195,7 @@
       transform:scale(0.98);
     }
 
-    /* Optional listening pulse */
+    /* Optional “listening” glow */
     .listening{
       animation: pulseGlow 1.25s ease-in-out infinite;
     }
@@ -212,8 +204,16 @@
       50%{ filter: drop-shadow(0 0 18px rgba(250,255,0,0.20)); }
     }
 
+    .micline{
+      font-size:12px;
+      opacity:.55;
+      letter-spacing:.5px;
+      margin-top:2px;
+      user-select:none;
+    }
+
     .cta{
-      max-width: 340px;
+      max-width: 360px;
       width:100%;
       padding:14px 20px;
       border-radius:18px;
@@ -223,11 +223,10 @@
       font-weight:900;
       font-size:13px;
       letter-spacing:1px;
-      text-transform:uppercase;
+      text-transform:none;
       text-decoration:none;
       text-align:center;
-      line-height:1.4;
-      transition: border-color .25s ease, box-shadow .25s ease, transform .12s ease;
+      line-height:1.35;
       user-select:none;
       box-sizing:border-box;
     }
@@ -240,6 +239,7 @@
 
     .ghostbtn{
       width:100%;
+      max-width:360px;
       padding:12px 18px;
       border-radius:18px;
       border:1px solid rgba(255,255,255,0.12);
@@ -252,8 +252,6 @@
       user-select:none;
       box-sizing:border-box;
     }
-
-    .ghostbtn:active{ transform:scale(0.98); }
 
     .footnote{
       font-size:12px;
@@ -341,11 +339,6 @@
       box-sizing:border-box;
     }
 
-    .lock-input:focus{
-      border-color:rgba(250,255,0,0.35);
-      box-shadow:0 0 0 3px rgba(250,255,0,0.10);
-    }
-
     .lock-btn{
       width:100%;
       margin-top:12px;
@@ -362,8 +355,6 @@
       box-sizing:border-box;
     }
 
-    .lock-btn:active{ transform:scale(0.98); }
-
     .lock-msg{
       margin-top:10px;
       min-height:20px;
@@ -371,16 +362,8 @@
       letter-spacing:1px;
       color:rgba(255,255,255,0.70);
     }
-
     .lock-msg.bad{ color:rgba(255,120,120,0.95); }
     .lock-msg.good{ color:rgba(250,255,0,0.95); }
-
-    .lock-fine{
-      margin-top:14px;
-      font-size:12px;
-      letter-spacing:1px;
-      color:rgba(255,255,255,0.50);
-    }
 
     .lock-link{
       display:inline-block;
@@ -392,19 +375,6 @@
       border-bottom:1px solid rgba(255,255,255,0.25);
       padding-bottom:3px;
       user-select:none;
-    }
-
-    .lock-link:hover{
-      color:rgba(255,255,255,0.88);
-      border-bottom-color:rgba(250,255,0,0.35);
-    }
-
-    .lock.fadeout{
-      animation:lockFade .9s ease forwards;
-    }
-
-    @keyframes lockFade{
-      to{opacity:0; transform:translateY(-8px)}
     }
   </style>
 </head>
@@ -421,12 +391,12 @@
     </div>
 
     <div class="bottom">
-
-      <!-- LISTEN / STOP moved here -->
       <div class="controls" id="controls">
         <button class="ctrl" id="listenBtn">LISTEN</button>
         <button class="ctrl" id="stopBtn" disabled>STOP</button>
       </div>
+
+      <div class="micline" id="micLine">Mic: optional (no recording)</div>
 
       <a class="cta" href="https://beyondourordinary.shop" target="_blank" rel="noopener noreferrer">
         If you like this app, buy the device here!
@@ -435,17 +405,15 @@
       <button class="ghostbtn" id="clearBtn">CLEAR HISTORY</button>
 
       <div class="footnote">
-        BOOCore Web is an interactive exploration experience designed for engagement and live sessions.
-        Microphone access is optional and used only to sense activity levels during listening. Audio is not recorded or stored.
+        Entertainment / Companion Edition · Microphone access (if allowed) is used only to sense activity levels. Audio is not recorded or stored.
       </div>
     </div>
   </div>
 
-  <!-- BOOCORE LOCK SCREEN -->
+  <!-- ACCESS LOCK -->
   <div class="lock" id="lockScreen" aria-hidden="true">
     <div class="lock-inner">
       <div class="lock-brand">BOOCORE</div>
-
       <div class="lock-title">Access Required</div>
       <div class="lock-sub">Enter your investigation code to begin.</div>
 
@@ -462,11 +430,8 @@
           placeholder="ENTER INVESTIGATION CODE"
         />
         <button class="lock-btn" id="activateBtn">ACTIVATE ACCESS</button>
-
         <div class="lock-msg" id="lockMsg" role="status" aria-live="polite"></div>
       </div>
-
-      <div class="lock-fine">30-day access · single device</div>
 
       <a class="lock-link" href="https://beyondourordinary.shop" target="_blank" rel="noopener noreferrer">
         Get investigation access
@@ -474,57 +439,47 @@
     </div>
   </div>
 
-  <script>
-    // ============================================================
-    // BOOCORE WEB (Entertainment / Companion Edition)
-    // LISTEN -> STOP -> ritual HOLD -> RESPONSE (one word)
-    // Optional mic amplitude (no recording, no transcript)
-    // Local 30-day access gate (test-mode code pattern)
-    // ============================================================
+  <!--
+    IMPORTANT:
+    Keep boocore_words_packs.js in the SAME folder as index.html
+    (repo root). This file imports those packs.
+  -->
+  <script type="module">
+    import {
+      CORE_WORDS,
+      PLACES,
+      ENTITIES,
+      ACTIONS_DIRECTIVES,
+      TONE_TRAITS,
+      PHRASES_MANIFESTATIONS,
+      HARD_STOP,
+      NAMES_PROBABLE,
+      COLORS_APPEARANCE,
+      NUMBERS,
+      SINGLE_LETTERS
+    } from "./boocore_words_packs.js";
 
-    // ---------- Elements ----------
-    const nowEl   = document.getElementById("now");
-    const stackEl = document.getElementById("stack");
-    const clearBtn = document.getElementById("clearBtn");
+    // ===== Elements =====
+    const nowEl      = document.getElementById("now");
+    const stackEl    = document.getElementById("stack");
+    const clearBtn   = document.getElementById("clearBtn");
+    const listenBtn  = document.getElementById("listenBtn");
+    const stopBtn    = document.getElementById("stopBtn");
+    const controlsEl = document.getElementById("controls");
+    const micLine    = document.getElementById("micLine");
 
-    const listenBtn = document.getElementById("listenBtn");
-    const stopBtn   = document.getElementById("stopBtn");
-    const controlsEl= document.getElementById("controls");
+    const lockScreen  = document.getElementById("lockScreen");
+    const codeInput   = document.getElementById("codeInput");
+    const activateBtn = document.getElementById("activateBtn");
+    const lockMsg     = document.getElementById("lockMsg");
 
-    // Lock screen elements
-    const lockScreen = document.getElementById("lockScreen");
-    const codeInput  = document.getElementById("codeInput");
-    const activateBtn= document.getElementById("activateBtn");
-    const lockMsg    = document.getElementById("lockMsg");
-
-    // ---------- Storage keys ----------
+    // ===== Storage keys =====
     const HIST_KEY   = "boocore_history";
     const ACCESS_KEY = "boocore_expires_at";
 
-    // ---------- Word pack (EDIT THIS) ----------
-    const WORDS = [
-      "WATCHING","WAIT","HERE","BEHIND","CLOSE","LISTEN","NOW","AGAIN",
-      "STOP","NO","LEAVE","GO","BACK","ENOUGH",
-      "COLD","DARK","DOWN","STAIRS","CELLAR","CORNER","SHADOW","SILENCE",
-      "YORK","ROMAN","VIKING","STONE","RIVER","BRIDGE","WALLS","BELL",
-      "MONK","PRAY","ANGER","HIDE","TRAPPED","VOICE","KNOCK"
-    ];
-
-    // ---------- History helpers ----------
-    function history(){
-      try { return JSON.parse(localStorage.getItem(HIST_KEY) || "[]"); }
-      catch { return []; }
-    }
-    function save(h){
-      localStorage.setItem(HIST_KEY, JSON.stringify(h));
-    }
-
-    function fmtTime(ms){
-      const d = new Date(ms);
-      const hh = String(d.getHours()).padStart(2,"0");
-      const mm = String(d.getMinutes()).padStart(2,"0");
-      return `${hh}:${mm}`;
-    }
+    // ===== Helpers =====
+    const rand = (a,b)=>Math.random()*(b-a)+a;
+    const now  = ()=>Date.now();
 
     function escapeHtml(s){
       return String(s)
@@ -534,10 +489,22 @@
         .replaceAll('"',"&quot;")
         .replaceAll("'","&#039;");
     }
-
+    function fmtTime(ms){
+      const d = new Date(ms);
+      const hh = String(d.getHours()).padStart(2,"0");
+      const mm = String(d.getMinutes()).padStart(2,"0");
+      return `${hh}:${mm}`;
+    }
+    function history(){
+      try { return JSON.parse(localStorage.getItem(HIST_KEY) || "[]"); }
+      catch { return []; }
+    }
+    function saveHistory(h){
+      localStorage.setItem(HIST_KEY, JSON.stringify(h));
+    }
     function render(){
       const h = history();
-      stackEl.innerHTML = h.slice(0, 30).map(item => `
+      stackEl.innerHTML = h.slice(0, 40).map(item => `
         <div class="row">
           <div class="w">${escapeHtml(item.word)}</div>
           <div class="t">${fmtTime(item.time)}</div>
@@ -551,12 +518,8 @@
       render();
     });
 
-    // ============================================================
-    // 30-day access gate (TEST MODE)
-    // ============================================================
-
+    // ===== Access gate (test-mode) =====
     const ACCESS_DAYS = 30;
-    let boocoreUnlocked = false;
 
     function getExpiry(){
       const v = localStorage.getItem(ACCESS_KEY);
@@ -570,34 +533,23 @@
       localStorage.setItem(ACCESS_KEY, String(expires));
       return expires;
     }
-
-    // Accepts e.g. BOO-30-AB12 or BOO-30-AB12-CD34
+    // Accepts: BOO-30-AB12 or BOO-30-AB12-CD34
     function validateCodeTestMode(code){
       const c = code.trim().toUpperCase();
       const pattern = /^BOO-30-[A-Z0-9]{4}(-[A-Z0-9]{4})?$/;
       return pattern.test(c);
     }
-
     function showLock(){
       lockScreen.classList.add("show");
       lockScreen.setAttribute("aria-hidden","false");
-      boocoreUnlocked = false;
       listenBtn.disabled = true;
       stopBtn.disabled = true;
       controlsEl.classList.remove("listening");
     }
-
     function hideLock(){
-      lockScreen.classList.add("fadeout");
-      lockMsg.className = "lock-msg good";
-      lockMsg.textContent = "Access granted";
-
-      setTimeout(()=>{
-        lockScreen.classList.remove("show","fadeout");
-        lockScreen.setAttribute("aria-hidden","true");
-        boocoreUnlocked = true;
-        setState(STATE.IDLE);
-      }, 650);
+      lockScreen.classList.remove("show");
+      lockScreen.setAttribute("aria-hidden","true");
+      setState(STATE.IDLE);
     }
 
     activateBtn.addEventListener("click", ()=>{
@@ -607,94 +559,24 @@
         lockMsg.textContent = "Enter your investigation code";
         return;
       }
-
-      const ok = validateCodeTestMode(raw);
-
-      if(!ok){
+      if(!validateCodeTestMode(raw)){
         lockMsg.className = "lock-msg bad";
         lockMsg.textContent = "Invalid or expired code";
         return;
       }
-
       setAccess30Days();
-      hideLock();
+      lockMsg.className = "lock-msg good";
+      lockMsg.textContent = "Access granted";
+      setTimeout(hideLock, 350);
     });
-
     codeInput.addEventListener("keydown",(e)=>{
       if(e.key === "Enter") activateBtn.click();
     });
 
-    // ============================================================
-    // Entertainment State Machine
-    // ============================================================
-
-    const STATE = {
-      IDLE: "IDLE",
-      LISTEN: "LISTEN",
-      HOLD: "HOLD",
-      COOLDOWN: "COOLDOWN",
-    };
-
-    let state = STATE.IDLE;
-
-    // Session tracking
-    let lastResponseAt = 0;
-    let recentQuestionTimes = [];
-    let cooldownUntil = 0;
-
-    // Listening metrics
-    let listenStartedAt = 0;
-    let listenDurationMs = 0;
+    // ===== Mic (optional, no recording) =====
+    let audioCtx = null, analyser = null, micStream = null, meterTimer = null;
     let peakLevel = 0;
     let heardSomething = false;
-
-    // Mic analyser (optional)
-    let audioCtx = null, analyser = null, micStream = null, meterTimer = null;
-
-    // Tuning
-    const HOLD_MIN_MS = 1500;
-    const HOLD_MAX_MS = 4000;
-
-    const CLUSTER_WINDOW_MS = 90_000;
-    const CLUSTER_THRESHOLD = 3;
-
-    const FORCED_SILENCE_MIN_MS = 20_000;
-    const FORCED_SILENCE_MAX_MS = 40_000;
-
-    const HARDSTOP_CHANCE = 1/20;
-    const HARDSTOP_LOCK_MS = 30_000;
-    const HARDSTOP_WORDS = ["STOP","NO","ENOUGH","LEAVE"];
-
-    let lastWord = "";
-
-    const rand = (a,b)=>Math.random()*(b-a)+a;
-    const now = ()=>Date.now();
-
-    function setState(next){
-      state = next;
-      const locked = now() < cooldownUntil;
-
-      if(!boocoreUnlocked){
-        listenBtn.disabled = true;
-        stopBtn.disabled = true;
-        controlsEl.classList.remove("listening");
-        return;
-      }
-
-      if(next === STATE.LISTEN){
-        listenBtn.disabled = true;
-        stopBtn.disabled = false;
-        controlsEl.classList.add("listening");
-      } else if(next === STATE.HOLD){
-        listenBtn.disabled = true;
-        stopBtn.disabled = true;
-        controlsEl.classList.remove("listening");
-      } else {
-        listenBtn.disabled = locked ? true : false;
-        stopBtn.disabled = true;
-        controlsEl.classList.remove("listening");
-      }
-    }
 
     async function startMic(){
       try{
@@ -720,7 +602,7 @@
         }, 80);
 
         return true;
-      }catch(e){
+      }catch{
         return false;
       }
     }
@@ -735,11 +617,71 @@
       analyser=null;
     }
 
+    // ===== Entertainment state machine =====
+    const STATE = { IDLE:"IDLE", LISTEN:"LISTEN", HOLD:"HOLD", COOLDOWN:"COOLDOWN" };
+    let state = STATE.IDLE;
+
+    let listenStartedAt = 0;
+    let listenDurationMs = 0;
+
+    let lastResponseAt = 0;
+    let lastWord = "";
+
+    let recentQuestionTimes = [];
+    const CLUSTER_WINDOW_MS = 90_000;
+    const CLUSTER_THRESHOLD = 3;
+
+    let cooldownUntil = 0;
+
+    const HOLD_MIN_MS = 1500;
+    const HOLD_MAX_MS = 4000;
+
+    const FORCED_SILENCE_MIN_MS = 20_000;
+    const FORCED_SILENCE_MAX_MS = 40_000;
+
+    // rare “hard stop” injection + lockout
+    const HARDSTOP_CHANCE = 1/22;        // ~4.5%
+    const HARDSTOP_LOCK_MS = 30_000;
+
+    // optional “names mode / colours / numbers” off by default
+    const ENABLE_NAMES   = false;
+    const ENABLE_COLORS  = false;
+    const ENABLE_NUMBERS = false;
+
+    function setState(next){
+      state = next;
+
+      const locked = now() < cooldownUntil;
+      const accessOk = hasAccess();
+
+      if(!accessOk){
+        listenBtn.disabled = true;
+        stopBtn.disabled = true;
+        controlsEl.classList.remove("listening");
+        return;
+      }
+
+      if(next === STATE.LISTEN){
+        listenBtn.disabled = true;
+        stopBtn.disabled = false;
+        controlsEl.classList.add("listening");
+      } else if(next === STATE.HOLD){
+        listenBtn.disabled = true;
+        stopBtn.disabled = true;
+        controlsEl.classList.remove("listening");
+      } else {
+        listenBtn.disabled = locked ? true : false;
+        stopBtn.disabled = true;
+        controlsEl.classList.remove("listening");
+      }
+    }
+
     function registerQuestion(){
       const t = now();
       recentQuestionTimes.unshift(t);
       recentQuestionTimes = recentQuestionTimes.filter(x => (t - x) <= CLUSTER_WINDOW_MS);
 
+      // Too many rapid questions => force silence cooldown
       if(recentQuestionTimes.length >= CLUSTER_THRESHOLD){
         const extra = rand(FORCED_SILENCE_MIN_MS, FORCED_SILENCE_MAX_MS);
         cooldownUntil = Math.max(cooldownUntil, t + extra);
@@ -747,71 +689,98 @@
       }
     }
 
-    function pickWeightedWord(){
-      if(!WORDS.length) return "—";
-
-      if(Math.random() < HARDSTOP_CHANCE){
-        return HARDSTOP_WORDS[Math.floor(Math.random()*HARDSTOP_WORDS.length)];
-      }
-
-      const longListen = listenDurationMs > 7000;
-      const highEnergy = peakLevel > 0.08 || (heardSomething && listenDurationMs > 2000);
-
-      const DIRECTIVE = ["STOP","NO","LEAVE","GO","BACK","ENOUGH","NOW"];
-      const OBSERVE   = ["WATCHING","WAIT","HERE","BEHIND","CLOSE","LISTEN","SILENCE"];
-      const DARK      = ["COLD","DARK","DOWN","CELLAR","STAIRS","CORNER","SHADOW"];
-
+    function pickWordWeighted(){
+      // Build a candidate pool each time (keeps it “alive”)
       let candidates = [];
 
-      const silenceMs = lastResponseAt ? (now() - lastResponseAt) : 999999;
-      if(silenceMs > 60_000) candidates = candidates.concat(OBSERVE);
+      // Always: BOOCore spine + places
+      candidates.push(...CORE_WORDS);
+      candidates.push(...PLACES);
 
-      if(longListen) candidates = candidates.concat(OBSERVE);
-      if(highEnergy) candidates = candidates.concat(DIRECTIVE);
-      if(highEnergy && Math.random()<0.35) candidates = candidates.concat(DARK);
+      // Tone layer (often)
+      if(Math.random() < 0.55) candidates.push(...TONE_TRAITS);
 
-      for(let i=0;i<12;i++){
-        candidates.push(WORDS[Math.floor(Math.random()*WORDS.length)]);
+      // Entities (sometimes)
+      if(Math.random() < 0.35) candidates.push(...ENTITIES);
+
+      // Phrases/manifestations (rare “moments”)
+      if(Math.random() < 0.16) candidates.push(...PHRASES_MANIFESTATIONS);
+
+      // Optional modes (off)
+      if(ENABLE_NAMES && Math.random() < 0.18) candidates.push(...NAMES_PROBABLE);
+      if(ENABLE_COLORS && Math.random() < 0.14) candidates.push(...COLORS_APPEARANCE);
+      if(ENABLE_NUMBERS && Math.random() < 0.10){
+        candidates.push(...NUMBERS);
+        candidates.push(...SINGLE_LETTERS);
       }
 
-      let w;
+      // Behavioural bias:
+      const longListen = listenDurationMs > 7000;
+      const highEnergy = peakLevel > 0.08 || (heardSomething && listenDurationMs > 2000);
+      const silenceMs  = lastResponseAt ? (now() - lastResponseAt) : 999999;
+
+      if(longListen || silenceMs > 60_000){
+        // More “observational spine” during long listen / silence
+        candidates.push(...CORE_WORDS);
+        candidates.push(...CORE_WORDS);
+      }
+
+      if(highEnergy){
+        // More directives / responses when energy is up
+        candidates.push(...ACTIONS_DIRECTIVES);
+        candidates.push(...ACTIONS_DIRECTIVES);
+        // Occasional punch
+        if(Math.random() < 0.35) candidates.push(...TONE_TRAITS);
+      }
+
+      // Rare hard stop override
+      if(Math.random() < HARDSTOP_CHANCE){
+        candidates = [...HARD_STOP, ...HARD_STOP, ...CORE_WORDS];
+      }
+
+      // Choose, avoid repeating last word
+      let w = "";
       let guard = 0;
       do{
-        w = candidates[Math.floor(Math.random()*candidates.length)];
+        w = candidates[Math.floor(Math.random() * candidates.length)];
         guard++;
-      } while(w === lastWord && guard < 20);
+      } while(w === lastWord && guard < 25);
 
       lastWord = w;
       return w;
     }
 
     function doResponse(word){
-      nowEl.textContent = word;
+      nowEl.textContent = String(word || "—").toUpperCase();
 
+      // mist fade
       nowEl.classList.remove("mist");
       void nowEl.offsetWidth;
       nowEl.classList.add("mist");
 
+      // save history (newest at top)
       const h = history();
-      h.unshift({word, time: Date.now()});
-      save(h);
-      render();
+      h.unshift({ word: String(word || "—"), time: Date.now() });
+      saveHistory(h);
 
+      render();
       lastResponseAt = Date.now();
 
+      // gentle haptic if supported
       navigator.vibrate?.(70);
 
-      if(HARDSTOP_WORDS.includes(word)){
+      // If hard stop word: enforce short lockout
+      if(HARD_STOP.includes(String(word))){
         cooldownUntil = Math.max(cooldownUntil, Date.now() + HARDSTOP_LOCK_MS);
       }
 
       setState(STATE.COOLDOWN);
-      setTimeout(()=> setState(STATE.IDLE), 800);
+      setTimeout(()=> setState(STATE.IDLE), 650);
     }
 
-    // ---------- Actions ----------
+    // ===== Actions =====
     listenBtn.addEventListener("click", async ()=>{
-      if(!boocoreUnlocked) return;
+      if(!hasAccess()) return;
       if(now() < cooldownUntil) return;
 
       setState(STATE.LISTEN);
@@ -821,7 +790,8 @@
       peakLevel = 0;
       heardSomething = false;
 
-      await startMic();
+      const ok = await startMic();
+      micLine.textContent = ok ? "Mic: enabled (level sensing)" : "Mic: optional (no recording)";
     });
 
     stopBtn.addEventListener("click", ()=>{
@@ -831,7 +801,6 @@
       stopMic();
 
       registerQuestion();
-
       setState(STATE.HOLD);
 
       const holdMs = rand(HOLD_MIN_MS, HOLD_MAX_MS);
@@ -841,22 +810,18 @@
           setState(STATE.IDLE);
           return;
         }
-
-        const w = pickWeightedWord();
+        const w = pickWordWeighted();
         doResponse(w);
-
       }, holdMs);
     });
 
-    // ---------- Init ----------
+    // ===== Init =====
     render();
 
     if(!hasAccess()){
       showLock();
-      setState(STATE.IDLE);
     }else{
-      boocoreUnlocked = true;
-      setState(STATE.IDLE);
+      hideLock();
     }
   </script>
 </body>
