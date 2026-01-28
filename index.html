@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>BOOCORE</title>
 
-  <!-- Fonts (Safari-safe) -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barrio&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -22,19 +22,16 @@
     html,body{
       height:100%;
       margin:0;
-      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       background:#000;
       color:var(--text);
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      overflow:hidden;
     }
 
     body{
       background:
-        linear-gradient(rgba(0,0,0,0.60), rgba(0,0,0,0.80)),
-        url("boocore-bg.png");
-      background-size: cover;
-      background-position: center;
-      background-repeat:no-repeat;
-      overflow:hidden;
+        linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.85)),
+        url("boocore-bg.png") center/cover no-repeat;
     }
 
     .wrap{
@@ -48,761 +45,248 @@
       gap:14px;
     }
 
-    .top{
-      width:100%;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      padding-top:4px;
-    }
-
-    /* BOOCORE title (Barrio) */
     .brand{
-      font-family: "Barrio", cursive;
-      font-size: 52px;
-      letter-spacing: 2px;
-      color: var(--boo);
-      text-shadow: 0 0 18px rgba(250,255,0,0.22);
-      line-height:1;
-      text-align:center;
+      font-family:"Barrio", cursive;
+      font-size:52px;
+      letter-spacing:3px;
+      color:var(--boo);
+      text-shadow:0 0 18px rgba(250,255,0,0.25);
       user-select:none;
     }
 
     .center{
-      width:min(520px, 92vw);
+      width:min(520px,92vw);
       display:flex;
       flex-direction:column;
-      align-items:center;
       gap:12px;
       flex:1;
-      justify-content:flex-start;
     }
 
-    /* Main word card */
+    /* MAIN WORD */
     .now{
-      width:100%;
-      padding:18px 14px;
-      border-radius:22px;
-      background: var(--glass);
-      border:1px solid var(--line);
-      text-align:center;
-      text-transform: uppercase;
-      user-select:none;
-      min-height: 96px;
+      min-height:96px;
       display:flex;
       align-items:center;
       justify-content:center;
-      box-sizing:border-box;
-
-      /* Main trigger word font (Barrio) */
-      font-family: "Barrio", cursive;
-      font-size: 76px;
-      letter-spacing: 2px;
-      color: rgba(255,255,255,0.92);
-      text-shadow: 0 0 22px rgba(0,0,0,0.65);
-    }
-
-    /* Mist fade-in */
-    .mist{
-      animation: mistIn 1.2s ease-out both;
-    }
-    @keyframes mistIn{
-      0%{ opacity:0; filter: blur(12px); transform: translateY(10px) scale(0.985); }
-      60%{ opacity:1; filter: blur(2px); transform: translateY(0) scale(1); }
-      100%{ opacity:1; filter: blur(0px); }
-    }
-
-    /* Tiny wobble on trigger */
-    @keyframes boocoreWobble {
-      0%   { transform: translate(0, 0) rotate(0deg); }
-      20%  { transform: translate(-1px, 1px) rotate(-0.4deg); }
-      40%  { transform: translate(1px, -1px) rotate(0.4deg); }
-      60%  { transform: translate(-1px, 0) rotate(-0.2deg); }
-      80%  { transform: translate(1px, 0) rotate(0.2deg); }
-      100% { transform: translate(0, 0) rotate(0deg); }
-    }
-    .wobble{
-      animation: boocoreWobble 220ms ease-out;
-    }
-
-    .stack{
-      width:100%;
-      padding:14px 12px;
+      background:var(--glass);
+      border:1px solid var(--line);
       border-radius:22px;
+      font-family:"Barrio", cursive;
+      font-size:64px;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      text-align:center;
+      color:rgba(255,255,255,0.92);
+      text-shadow:0 0 22px rgba(0,0,0,0.65);
+      user-select:none;
+    }
+
+    /* Animations */
+    @keyframes mistIn{
+      0%{opacity:0;filter:blur(12px);transform:translateY(10px) scale(.985)}
+      100%{opacity:1;filter:blur(0);transform:none}
+    }
+    .mist{ animation:mistIn 1.1s ease-out both }
+
+    @keyframes wobble{
+      0%{transform:none}
+      25%{transform:translate(-1px,1px) rotate(-0.4deg)}
+      50%{transform:translate(1px,-1px) rotate(0.4deg)}
+      75%{transform:translate(-1px,0) rotate(-0.2deg)}
+      100%{transform:none}
+    }
+    .wobble{ animation:wobble .22s ease-out }
+
+    @keyframes pulse{
+      0%{transform:scale(1);filter:brightness(1)}
+      50%{transform:scale(1.03);filter:brightness(1.15)}
+      100%{transform:scale(1);filter:brightness(1)}
+    }
+    .pulse{ animation:pulse .26s ease-out }
+
+    /* HISTORY */
+    .stack{
+      max-height:46vh;
+      overflow:auto;
       background:rgba(0,0,0,0.18);
       border:1px solid rgba(255,255,255,0.08);
+      border-radius:22px;
+      padding:14px 12px;
       display:flex;
       flex-direction:column;
       gap:8px;
-
-      max-height:46vh;
-      overflow:auto;
-      -webkit-overflow-scrolling:touch;
-      box-sizing:border-box;
     }
 
     .row{
       display:flex;
       justify-content:space-between;
-      align-items:baseline;
-      gap:12px;
+      align-items:center;
       padding:10px 12px;
+      background:rgba(0,0,0,0.25);
       border-radius:16px;
-      background: rgba(0,0,0,0.24);
       border:1px solid rgba(255,255,255,0.06);
     }
 
-    /* History = Inter */
     .w{
-      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      font-weight:800;
-      letter-spacing:1px;
+      font-family:"Barrio", cursive;
+      font-size:18px;
+      letter-spacing:1.5px;
       text-transform:uppercase;
-      color: rgba(255,255,255,0.92);
-      font-size:16px;
-      flex:1;
+      opacity:.78;
+      will-change:transform;
+    }
+
+    @keyframes drift{
+      0%{transform:translateX(0)}
+      50%{transform:translateX(3px)}
+      100%{transform:translateX(0)}
+    }
+    .drift{
+      animation:drift 5.5s ease-in-out infinite;
     }
 
     .t{
-      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       font-size:12px;
-      color: rgba(255,255,255,0.50);
+      opacity:.5;
       letter-spacing:1px;
       white-space:nowrap;
     }
 
-    .bottom{
-      width:min(520px, 92vw);
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:10px;
-      padding-bottom:4px;
-      text-align:center;
-    }
-
-    .controls{
-      display:flex;
-      gap:12px;
-      margin: 4px 0 8px;
-    }
+    /* CONTROLS */
+    .controls{display:flex;gap:12px;justify-content:center}
 
     .ctrl{
       padding:12px 16px;
       border-radius:16px;
-      border:2px solid rgba(250,255,0,0.25);
+      border:2px solid rgba(250,255,0,0.3);
       background:rgba(0,0,0,0.35);
-      color:rgba(250,255,0,0.95);
-      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color:var(--boo);
       font-weight:900;
       letter-spacing:2px;
       text-transform:uppercase;
-      min-width:130px;
       cursor:pointer;
-      user-select:none;
-      transition: transform .12s ease, border-color .18s ease, box-shadow .18s ease, opacity .18s ease;
     }
-
-    .ctrl:disabled{
-      opacity:.35;
-      border-color:rgba(250,255,0,0.12);
-      cursor:not-allowed;
-    }
-
-    .ctrl:active{ transform:scale(0.98); }
-
-    .listening{
-      animation: pulseGlow 1.25s ease-in-out infinite;
-    }
-    @keyframes pulseGlow{
-      0%,100%{ filter: drop-shadow(0 0 0 rgba(250,255,0,0)); }
-      50%{ filter: drop-shadow(0 0 18px rgba(250,255,0,0.20)); }
-    }
-
-    .micline{
-      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      font-size:12px;
-      opacity:.55;
-      letter-spacing:.5px;
-      margin-top:2px;
-      user-select:none;
-    }
+    .ctrl:disabled{opacity:.35}
 
     .cta{
-      max-width: 360px;
-      width:100%;
+      margin-top:8px;
       padding:14px 20px;
       border-radius:18px;
-      border:2px solid rgba(250,255,0,0.20);
+      border:2px solid rgba(250,255,0,0.2);
       background:rgba(0,0,0,0.45);
       color:var(--boo);
-      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       font-weight:900;
       font-size:13px;
       letter-spacing:1px;
       text-decoration:none;
       text-align:center;
-      line-height:1.35;
-      user-select:none;
-      box-sizing:border-box;
-    }
-
-    .cta:active{
-      transform:scale(0.98);
-      box-shadow:0 0 18px rgba(250,255,0,0.18);
-      border-color: rgba(250,255,0,0.55);
     }
 
     .ghostbtn{
-      width:100%;
-      max-width:360px;
+      margin-top:8px;
       padding:12px 18px;
       border-radius:18px;
       border:1px solid rgba(255,255,255,0.12);
-      background:rgba(0,0,0,0.40);
-      color:rgba(255,255,255,0.78);
-      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background:rgba(0,0,0,0.4);
+      color:rgba(255,255,255,0.75);
       font-weight:800;
       letter-spacing:1px;
-      text-transform:uppercase;
       cursor:pointer;
-      user-select:none;
-      box-sizing:border-box;
-    }
-
-    .footnote{
-      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      font-size:12px;
-      color:rgba(255,255,255,0.42);
-      letter-spacing:0.5px;
-      text-align:center;
-      max-width:520px;
-      line-height:1.35;
-    }
-
-    /* ===== LOCK SCREEN ===== */
-    .lock{
-      position:fixed;
-      inset:0;
-      z-index:50;
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:22px;
-      background:rgba(0,0,0,0.70);
-    }
-    .lock.show{ display:flex; }
-
-    .lock-inner{
-      width:min(520px, 92vw);
-      border-radius:22px;
-      padding:22px 18px;
-      text-align:center;
-      background:rgba(0,0,0,0.55);
-      border:1px solid rgba(255,255,255,0.12);
-      box-shadow:0 0 60px rgba(0,0,0,0.55);
-    }
-
-    .lock-brand{
-      font-family:"Barrio", cursive;
-      color:var(--boo);
-      letter-spacing:4px;
-      font-weight:900;
-      font-size:34px;
-      text-transform:uppercase;
-      text-shadow:0 0 16px rgba(250,255,0,0.18);
-      margin-bottom:12px;
-      line-height:1;
-    }
-
-    .lock-title{
-      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      font-size:26px;
-      letter-spacing:2px;
-      color:rgba(255,255,255,0.92);
-      font-weight:900;
-      margin-bottom:6px;
-    }
-
-    .lock-sub{
-      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      color:rgba(255,255,255,0.65);
-      letter-spacing:1px;
-      font-size:14px;
-      line-height:1.4;
-      margin-bottom:16px;
-    }
-
-    .lock-box{
-      margin:0 auto;
-      width:min(420px, 92vw);
-      border-radius:18px;
-      padding:16px;
-      background:rgba(0,0,0,0.40);
-      border:1px solid rgba(255,255,255,0.10);
-      box-sizing:border-box;
-    }
-
-    .lock-input{
-      width:100%;
-      padding:14px 14px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,0.18);
-      background:rgba(0,0,0,0.55);
-      color:rgba(255,255,255,0.9);
-      text-align:center;
-      letter-spacing:2px;
-      font-weight:800;
-      text-transform:uppercase;
-      outline:none;
-      box-sizing:border-box;
-    }
-
-    .lock-btn{
-      width:100%;
-      margin-top:12px;
-      padding:14px 14px;
-      border-radius:14px;
-      border:2px solid rgba(250,255,0,0.30);
-      background:rgba(0,0,0,0.40);
-      color:var(--boo);
-      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      font-weight:900;
-      letter-spacing:2px;
-      text-transform:uppercase;
-      cursor:pointer;
-      user-select:none;
-      box-sizing:border-box;
-    }
-
-    .lock-msg{
-      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      margin-top:10px;
-      min-height:20px;
-      font-size:13px;
-      letter-spacing:1px;
-      color:rgba(255,255,255,0.70);
-    }
-    .lock-msg.bad{ color:rgba(255,120,120,0.95); }
-    .lock-msg.good{ color:rgba(250,255,0,0.95); }
-
-    .lock-link{
-      display:inline-block;
-      margin-top:10px;
-      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      font-size:13px;
-      letter-spacing:1px;
-      color:rgba(255,255,255,0.70);
-      text-decoration:none;
-      border-bottom:1px solid rgba(255,255,255,0.25);
-      padding-bottom:3px;
-      user-select:none;
     }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
-    <div class="top">
-      <div class="brand">BOOCORE</div>
-    </div>
+<div class="wrap">
+  <div class="brand">BOOCORE</div>
 
-    <div class="center">
-      <div id="now" class="now">—</div>
-      <div id="stack" class="stack"></div>
-    </div>
-
-    <div class="bottom">
-      <div class="controls" id="controls">
-        <button class="ctrl" id="listenBtn">LISTEN</button>
-        <button class="ctrl" id="stopBtn" disabled>STOP</button>
-      </div>
-
-      <div class="micline" id="micLine">Mic: optional (no recording)</div>
-
-      <a class="cta" href="https://beyondourordinary.shop" target="_blank" rel="noopener noreferrer">
-        If you like this app, buy the device here!
-      </a>
-
-      <button class="ghostbtn" id="clearBtn">CLEAR HISTORY</button>
-
-      <div class="footnote">
-        Entertainment / Companion Edition · Microphone access (if allowed) is used only to sense activity levels. Audio is not recorded or stored.
-      </div>
-    </div>
+  <div class="center">
+    <div id="now" class="now">—</div>
+    <div id="stack" class="stack"></div>
   </div>
 
-  <!-- ACCESS LOCK -->
-  <div class="lock" id="lockScreen" aria-hidden="true">
-    <div class="lock-inner">
-      <div class="lock-brand">BOOCORE</div>
-      <div class="lock-title">Access Required</div>
-      <div class="lock-sub">Enter your investigation code to begin.</div>
-
-      <div class="lock-box">
-        <input
-          id="codeInput"
-          class="lock-input"
-          type="text"
-          inputmode="text"
-          autocapitalize="characters"
-          autocomplete="off"
-          autocorrect="off"
-          spellcheck="false"
-          placeholder="ENTER INVESTIGATION CODE"
-        />
-        <button class="lock-btn" id="activateBtn">ACTIVATE ACCESS</button>
-        <div class="lock-msg" id="lockMsg" role="status" aria-live="polite"></div>
-      </div>
-
-      <a class="lock-link" href="https://beyondourordinary.shop" target="_blank" rel="noopener noreferrer">
-        Get investigation access
-      </a>
-    </div>
+  <div class="controls">
+    <button id="listenBtn" class="ctrl">LISTEN</button>
+    <button id="stopBtn" class="ctrl" disabled>STOP</button>
   </div>
 
-  <!-- Word packs (GLOBAL, must be in same folder) -->
-  <script src="./boocore_words_packs.js"></script>
+  <a class="cta" href="https://beyondourordinary.shop" target="_blank">
+    If you like this app, buy the device here!
+  </a>
 
-  <script>
-    // ===== Packs =====
-    if (!window.BOOCoreWords) {
-      alert("Word packs not loaded. Check boocore_words_packs.js is in the same folder as index.html");
-    }
-    const PACKS = window.BOOCoreWords || {};
+  <button id="clearBtn" class="ghostbtn">CLEAR HISTORY</button>
+</div>
 
-    // ===== Elements =====
-    const nowEl      = document.getElementById("now");
-    const stackEl    = document.getElementById("stack");
-    const clearBtn   = document.getElementById("clearBtn");
-    const listenBtn  = document.getElementById("listenBtn");
-    const stopBtn    = document.getElementById("stopBtn");
-    const controlsEl = document.getElementById("controls");
-    const micLine    = document.getElementById("micLine");
+<!-- WORD PACKS -->
+<script src="./boocore_words_packs.js"></script>
 
-    const lockScreen  = document.getElementById("lockScreen");
-    const codeInput   = document.getElementById("codeInput");
-    const activateBtn = document.getElementById("activateBtn");
-    const lockMsg     = document.getElementById("lockMsg");
+<script>
+  const nowEl = document.getElementById("now");
+  const stackEl = document.getElementById("stack");
+  const listenBtn = document.getElementById("listenBtn");
+  const stopBtn = document.getElementById("stopBtn");
+  const clearBtn = document.getElementById("clearBtn");
 
-    // ===== Storage keys =====
-    const HIST_KEY   = "boocore_history";
-    const ACCESS_KEY = "boocore_expires_at";
+  let listening = false;
+  let listenStart = 0;
 
-    const rand = (a,b)=>Math.random()*(b-a)+a;
+  function timeStr(){
+    const d=new Date();
+    return d.toTimeString().slice(0,5);
+  }
 
-    function escapeHtml(s){
-      return String(s)
-        .replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;").replaceAll("'","&#039;");
-    }
-    function fmtTime(ms){
-      const d = new Date(ms);
-      const hh = String(d.getHours()).padStart(2,"0");
-      const mm = String(d.getMinutes()).padStart(2,"0");
-      return `${hh}:${mm}`;
-    }
-    function history(){
-      try { return JSON.parse(localStorage.getItem(HIST_KEY) || "[]"); }
-      catch { return []; }
-    }
-    function saveHistory(h){
-      localStorage.setItem(HIST_KEY, JSON.stringify(h));
-    }
-    function render(){
-      const h = history();
-      stackEl.innerHTML = h.slice(0, 40).map(item => `
-        <div class="row">
-          <div class="w">${escapeHtml(item.word)}</div>
-          <div class="t">${fmtTime(item.time)}</div>
-        </div>
-      `).join("");
-    }
+  function renderHistory(h){
+    stackEl.innerHTML = h.map(item=>`
+      <div class="row">
+        <div class="w drift" style="animation-delay:${Math.random()*2}s">${item.word}</div>
+        <div class="t">${item.time}</div>
+      </div>
+    `).join("");
+  }
 
-    clearBtn.addEventListener("click", ()=>{
-      localStorage.removeItem(HIST_KEY);
-      nowEl.textContent = "—";
-      render();
-    });
+  function triggerWord(){
+    const pool = [
+      ...BOOCoreWords.CORE_WORDS,
+      ...BOOCoreWords.PLACES,
+      ...(Math.random()<.4?BOOCoreWords.TONE_TRAITS:[]),
+      ...(Math.random()<.15?BOOCoreWords.PHRASES_MANIFESTATIONS:[])
+    ];
 
-    // ===== Access gate (test-mode) =====
-    const ACCESS_DAYS = 30;
+    const word = pool[Math.floor(Math.random()*pool.length)];
 
-    function getExpiry(){
-      const v = localStorage.getItem(ACCESS_KEY);
-      return v ? Number(v) : 0;
-    }
-    function hasAccess(){
-      return Date.now() < getExpiry();
-    }
-    function setAccess30Days(){
-      const expires = Date.now() + ACCESS_DAYS * 24 * 60 * 60 * 1000;
-      localStorage.setItem(ACCESS_KEY, String(expires));
-      return expires;
-    }
-    function validateCodeTestMode(code){
-      const c = code.trim().toUpperCase();
-      const pattern = /^BOO-30-[A-Z0-9]{4}(-[A-Z0-9]{4})?$/;
-      return pattern.test(c);
-    }
-    function showLock(){
-      lockScreen.classList.add("show");
-      lockScreen.setAttribute("aria-hidden","false");
-      listenBtn.disabled = true;
-      stopBtn.disabled = true;
-      controlsEl.classList.remove("listening");
-    }
-    function hideLock(){
-      lockScreen.classList.remove("show");
-      lockScreen.setAttribute("aria-hidden","true");
-      setState(STATE.IDLE);
-    }
+    nowEl.classList.remove("mist","wobble","pulse");
+    void nowEl.offsetWidth;
+    nowEl.textContent = word;
+    nowEl.classList.add("mist","wobble","pulse");
 
-    activateBtn.addEventListener("click", ()=>{
-      const raw = (codeInput.value || "").trim().toUpperCase();
-      if(!raw){
-        lockMsg.className = "lock-msg bad";
-        lockMsg.textContent = "Enter your investigation code";
-        return;
-      }
-      if(!validateCodeTestMode(raw)){
-        lockMsg.className = "lock-msg bad";
-        lockMsg.textContent = "Invalid or expired code";
-        return;
-      }
-      setAccess30Days();
-      lockMsg.className = "lock-msg good";
-      lockMsg.textContent = "Access granted";
-      setTimeout(hideLock, 350);
-    });
-    codeInput.addEventListener("keydown",(e)=>{
-      if(e.key === "Enter") activateBtn.click();
-    });
+    const hist = JSON.parse(localStorage.getItem("boo_hist")||"[]");
+    hist.unshift({word,time:timeStr()});
+    localStorage.setItem("boo_hist",JSON.stringify(hist.slice(0,40)));
+    renderHistory(hist);
+  }
 
-    // ===== Mic (optional, no recording) =====
-    let audioCtx = null, analyser = null, micStream = null, meterTimer = null;
-    let peakLevel = 0;
-    let heardSomething = false;
+  listenBtn.onclick=()=>{
+    listening=true;
+    listenStart=Date.now();
+    listenBtn.disabled=true;
+    stopBtn.disabled=false;
+  };
 
-    async function startMic(){
-      try{
-        if(micStream) return true;
-        micStream = await navigator.mediaDevices.getUserMedia({ audio:true });
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const src = audioCtx.createMediaStreamSource(micStream);
-        analyser = audioCtx.createAnalyser();
-        analyser.fftSize = 1024;
-        src.connect(analyser);
+  stopBtn.onclick=()=>{
+    if(!listening) return;
+    listening=false;
+    listenBtn.disabled=false;
+    stopBtn.disabled=true;
+    setTimeout(triggerWord,1500+Math.random()*2500);
+  };
 
-        const data = new Uint8Array(analyser.fftSize);
-        meterTimer = setInterval(()=>{
-          analyser.getByteTimeDomainData(data);
-          let sum = 0;
-          for(let i=0;i<data.length;i++){
-            const v = (data[i]-128)/128;
-            sum += v*v;
-          }
-          const rms = Math.sqrt(sum/data.length);
-          peakLevel = Math.max(peakLevel, rms);
-          if(rms > 0.03) heardSomething = true;
-        }, 80);
+  clearBtn.onclick=()=>{
+    localStorage.removeItem("boo_hist");
+    stackEl.innerHTML="";
+    nowEl.textContent="—";
+  };
 
-        return true;
-      }catch{
-        return false;
-      }
-    }
-
-    function stopMic(){
-      if(meterTimer){ clearInterval(meterTimer); meterTimer=null; }
-      if(audioCtx){ audioCtx.close().catch(()=>{}); audioCtx=null; }
-      if(micStream){
-        micStream.getTracks().forEach(t=>t.stop());
-        micStream=null;
-      }
-      analyser=null;
-    }
-
-    // ===== Entertainment state machine =====
-    const STATE = { IDLE:"IDLE", LISTEN:"LISTEN", HOLD:"HOLD", COOLDOWN:"COOLDOWN" };
-    let state = STATE.IDLE;
-
-    let listenStartedAt = 0;
-    let listenDurationMs = 0;
-
-    let lastResponseAt = 0;
-    let lastWord = "";
-
-    let recentQuestionTimes = [];
-    const CLUSTER_WINDOW_MS = 90_000;
-    const CLUSTER_THRESHOLD = 3;
-
-    let cooldownUntil = 0;
-
-    const HOLD_MIN_MS = 1500;
-    const HOLD_MAX_MS = 4000;
-
-    const FORCED_SILENCE_MIN_MS = 20_000;
-    const FORCED_SILENCE_MAX_MS = 40_000;
-
-    const HARDSTOP_CHANCE = 1/22;        // ~4.5%
-    const HARDSTOP_LOCK_MS = 30_000;
-
-    function setState(next){
-      state = next;
-
-      const locked = Date.now() < cooldownUntil;
-      const accessOk = hasAccess();
-
-      if(!accessOk){
-        listenBtn.disabled = true;
-        stopBtn.disabled = true;
-        controlsEl.classList.remove("listening");
-        return;
-      }
-
-      if(next === STATE.LISTEN){
-        listenBtn.disabled = true;
-        stopBtn.disabled = false;
-        controlsEl.classList.add("listening");
-      } else if(next === STATE.HOLD){
-        listenBtn.disabled = true;
-        stopBtn.disabled = true;
-        controlsEl.classList.remove("listening");
-      } else {
-        listenBtn.disabled = locked ? true : false;
-        stopBtn.disabled = true;
-        controlsEl.classList.remove("listening");
-      }
-    }
-
-    function registerQuestion(){
-      const t = Date.now();
-      recentQuestionTimes.unshift(t);
-      recentQuestionTimes = recentQuestionTimes.filter(x => (t - x) <= CLUSTER_WINDOW_MS);
-
-      if(recentQuestionTimes.length >= CLUSTER_THRESHOLD){
-        const extra = rand(FORCED_SILENCE_MIN_MS, FORCED_SILENCE_MAX_MS);
-        cooldownUntil = Math.max(cooldownUntil, t + extra);
-        recentQuestionTimes = [];
-      }
-    }
-
-    function pickWordWeighted(){
-      const CORE   = PACKS.CORE_WORDS || [];
-      const PLACES = PACKS.PLACES || [];
-      const ENT    = PACKS.ENTITIES || [];
-      const ACT    = PACKS.ACTIONS_DIRECTIVES || [];
-      const TONE   = PACKS.TONE_TRAITS || [];
-      const PHRASE = PACKS.PHRASES_MANIFESTATIONS || [];
-      const HARD   = PACKS.HARD_STOP || [];
-
-      let candidates = [];
-      candidates.push(...CORE);
-      candidates.push(...PLACES);
-
-      if(Math.random() < 0.55) candidates.push(...TONE);
-      if(Math.random() < 0.35) candidates.push(...ENT);
-      if(Math.random() < 0.16) candidates.push(...PHRASE);
-
-      const longListen = listenDurationMs > 7000;
-      const highEnergy = peakLevel > 0.08 || (heardSomething && listenDurationMs > 2000);
-      const silenceMs  = lastResponseAt ? (Date.now() - lastResponseAt) : 999999;
-
-      if(longListen || silenceMs > 60_000){
-        candidates.push(...CORE);
-        candidates.push(...CORE);
-      }
-
-      if(highEnergy){
-        candidates.push(...ACT);
-        candidates.push(...ACT);
-        if(Math.random() < 0.35) candidates.push(...TONE);
-      }
-
-      if(Math.random() < HARDSTOP_CHANCE && HARD.length){
-        candidates = [...HARD, ...HARD, ...CORE];
-      }
-
-      let w = "";
-      let guard = 0;
-      do{
-        w = candidates[Math.floor(Math.random() * candidates.length)];
-        guard++;
-      } while(w === lastWord && guard < 25);
-
-      lastWord = w;
-      return w;
-    }
-
-    function doResponse(word){
-      // Set text
-      nowEl.textContent = String(word || "—").toUpperCase();
-
-      // Mist + wobble (replay-safe for Safari)
-      nowEl.classList.remove("mist","wobble");
-      void nowEl.offsetWidth;
-      nowEl.classList.add("mist","wobble");
-
-      // Save history (newest at top)
-      const h = history();
-      h.unshift({ word: String(word || "—"), time: Date.now() });
-      saveHistory(h);
-      render();
-
-      lastResponseAt = Date.now();
-      navigator.vibrate?.(70);
-
-      const HARD = PACKS.HARD_STOP || [];
-      if(HARD.includes(String(word))){
-        cooldownUntil = Math.max(cooldownUntil, Date.now() + HARDSTOP_LOCK_MS);
-      }
-
-      setState(STATE.COOLDOWN);
-      setTimeout(()=> setState(STATE.IDLE), 650);
-    }
-
-    // LISTEN: starts mic only (NO WORD)
-    listenBtn.addEventListener("click", async ()=>{
-      if(!hasAccess()) return;
-      if(Date.now() < cooldownUntil) return;
-
-      setState(STATE.LISTEN);
-
-      listenStartedAt = Date.now();
-      listenDurationMs = 0;
-      peakLevel = 0;
-      heardSomething = false;
-
-      const ok = await startMic();
-      micLine.textContent = ok ? "Mic: enabled (level sensing)" : "Mic: optional (no recording)";
-    });
-
-    // STOP: ends listen and triggers word after short hold
-    stopBtn.addEventListener("click", ()=>{
-      if(state !== STATE.LISTEN) return;
-
-      listenDurationMs = Date.now() - listenStartedAt;
-      stopMic();
-
-      registerQuestion();
-      setState(STATE.HOLD);
-
-      const holdMs = rand(HOLD_MIN_MS, HOLD_MAX_MS);
-
-      setTimeout(()=>{
-        if(Date.now() < cooldownUntil){
-          setState(STATE.IDLE);
-          return;
-        }
-        const w = pickWordWeighted();
-        doResponse(w);
-      }, holdMs);
-    });
-
-    // ===== Init =====
-    render();
-    if(!hasAccess()) showLock(); else hideLock();
-  </script>
+  renderHistory(JSON.parse(localStorage.getItem("boo_hist")||"[]"));
+</script>
 </body>
 </html>
