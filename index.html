@@ -1,210 +1,200 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>BOOCORE</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>BOOCORE</title>
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barrio&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barrio&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 
-  <style>
-    :root{
-      --boo:#FAFF00;
-      --glass: rgba(0,0,0,0.45);
-      --line: rgba(255,255,255,0.10);
-      --text: rgba(255,255,255,0.88);
-    }
+<style>
+:root{
+  --boo:#FAFF00;
+  --glass:rgba(0,0,0,.45);
+  --line:rgba(255,255,255,.1);
+}
 
-    html,body{
-      height:100%;
-      margin:0;
-      background:#000;
-      color:var(--text);
-      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      overflow:hidden;
-    }
+html,body{
+  height:100%;
+  margin:0;
+  background:#000;
+  font-family:Inter,system-ui;
+  overflow:hidden;
+}
 
-    body{
-      background:
-        linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.85)),
-        url("boocore-bg.png") center/cover no-repeat;
-    }
+body{
+  background:
+    linear-gradient(rgba(0,0,0,.65),rgba(0,0,0,.85)),
+    url("boocore-bg.png") center/cover no-repeat;
+  color:white;
+}
 
-    .wrap{
-      height:100%;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:space-between;
-      padding: max(18px, env(safe-area-inset-top)) 16px max(18px, env(safe-area-inset-bottom));
-      box-sizing:border-box;
-      gap:14px;
-    }
+.wrap{
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  padding:env(safe-area-inset-top) 14px env(safe-area-inset-bottom);
+  box-sizing:border-box;
+}
 
-    .brand{
-      font-family:"Barrio", cursive;
-      font-size:52px;
-      letter-spacing:3px;
-      color:var(--boo);
-      text-shadow:0 0 18px rgba(250,255,0,0.25);
-      user-select:none;
-    }
+.brand{
+  font-family:Barrio,cursive;
+  text-align:center;
+  font-size:52px;
+  letter-spacing:3px;
+  color:var(--boo);
+  text-shadow:0 0 18px rgba(250,255,0,.25);
+  margin-bottom:10px;
+}
 
-    .center{
-      width:min(520px,92vw);
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      flex:1;
-    }
+.center{
+  flex:1;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
 
-    /* MAIN WORD */
-    .now{
-      min-height:96px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:var(--glass);
-      border:1px solid var(--line);
-      border-radius:22px;
-      font-family:"Barrio", cursive;
-      font-size:64px;
-      letter-spacing:2px;
-      text-transform:uppercase;
-      text-align:center;
-      color:rgba(255,255,255,0.92);
-      text-shadow:0 0 22px rgba(0,0,0,0.65);
-      user-select:none;
-    }
+.now{
+  min-height:96px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--glass);
+  border:1px solid var(--line);
+  border-radius:22px;
+  font-family:Barrio,cursive;
+  font-size:64px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  text-align:center;
+}
 
-    /* Animations */
-    @keyframes mistIn{
-      0%{opacity:0;filter:blur(12px);transform:translateY(10px) scale(.985)}
-      100%{opacity:1;filter:blur(0);transform:none}
-    }
-    .mist{ animation:mistIn 1.1s ease-out both }
+@keyframes mist{0%{opacity:0;filter:blur(10px)}100%{opacity:1;filter:none}}
+@keyframes wobble{
+  0%{transform:none}
+  25%{transform:translate(-1px,1px) rotate(-.4deg)}
+  50%{transform:translate(1px,-1px) rotate(.4deg)}
+  100%{transform:none}
+}
+@keyframes pulse{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.03)}
+  100%{transform:scale(1)}
+}
+.mist{animation:mist 1.1s ease-out both}
+.wobble{animation:wobble .22s ease-out}
+.pulse{animation:pulse .26s ease-out}
 
-    @keyframes wobble{
-      0%{transform:none}
-      25%{transform:translate(-1px,1px) rotate(-0.4deg)}
-      50%{transform:translate(1px,-1px) rotate(0.4deg)}
-      75%{transform:translate(-1px,0) rotate(-0.2deg)}
-      100%{transform:none}
-    }
-    .wobble{ animation:wobble .22s ease-out }
+.stack{
+  background:rgba(0,0,0,.18);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:22px;
+  padding:12px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
 
-    @keyframes pulse{
-      0%{transform:scale(1);filter:brightness(1)}
-      50%{transform:scale(1.03);filter:brightness(1.15)}
-      100%{transform:scale(1);filter:brightness(1)}
-    }
-    .pulse{ animation:pulse .26s ease-out }
+.row{
+  display:flex;
+  justify-content:space-between;
+  padding:10px 12px;
+  background:rgba(0,0,0,.25);
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.06);
+}
 
-    /* HISTORY */
-    .stack{
-      max-height:46vh;
-      overflow:auto;
-      background:rgba(0,0,0,0.18);
-      border:1px solid rgba(255,255,255,0.08);
-      border-radius:22px;
-      padding:14px 12px;
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-    }
+@keyframes drift{
+  0%{transform:translateX(0)}
+  50%{transform:translateX(3px)}
+  100%{transform:translateX(0)}
+}
 
-    .row{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:10px 12px;
-      background:rgba(0,0,0,0.25);
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,0.06);
-    }
+.w{
+  font-family:Barrio,cursive;
+  font-size:18px;
+  letter-spacing:1.5px;
+  opacity:.78;
+  animation:drift 5.5s ease-in-out infinite;
+}
 
-    .w{
-      font-family:"Barrio", cursive;
-      font-size:18px;
-      letter-spacing:1.5px;
-      text-transform:uppercase;
-      opacity:.78;
-      will-change:transform;
-    }
+.t{font-size:12px;opacity:.5}
 
-    @keyframes drift{
-      0%{transform:translateX(0)}
-      50%{transform:translateX(3px)}
-      100%{transform:translateX(0)}
-    }
-    .drift{
-      animation:drift 5.5s ease-in-out infinite;
-    }
+.bottom-fixed{
+  position:sticky;
+  bottom:0;
+  background:linear-gradient(
+    rgba(0,0,0,0),
+    rgba(0,0,0,.85) 35%,
+    rgba(0,0,0,.95)
+  );
+  padding:12px 0 env(safe-area-inset-bottom);
+}
 
-    .t{
-      font-size:12px;
-      opacity:.5;
-      letter-spacing:1px;
-      white-space:nowrap;
-    }
+.controls{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+}
 
-    /* CONTROLS */
-    .controls{display:flex;gap:12px;justify-content:center}
+.ctrl{
+  padding:12px 16px;
+  border-radius:16px;
+  border:2px solid rgba(250,255,0,.3);
+  background:rgba(0,0,0,.35);
+  color:var(--boo);
+  font-weight:900;
+  letter-spacing:2px;
+  cursor:pointer;
+}
+.ctrl:disabled{opacity:.35}
 
-    .ctrl{
-      padding:12px 16px;
-      border-radius:16px;
-      border:2px solid rgba(250,255,0,0.3);
-      background:rgba(0,0,0,0.35);
-      color:var(--boo);
-      font-weight:900;
-      letter-spacing:2px;
-      text-transform:uppercase;
-      cursor:pointer;
-    }
-    .ctrl:disabled{opacity:.35}
+.cta{
+  display:block;
+  margin:10px auto 0;
+  max-width:360px;
+  padding:14px 20px;
+  border-radius:18px;
+  border:2px solid rgba(250,255,0,.2);
+  background:rgba(0,0,0,.45);
+  color:var(--boo);
+  font-weight:900;
+  font-size:13px;
+  letter-spacing:1px;
+  text-align:center;
+  text-decoration:none;
+}
 
-    .cta{
-      margin-top:8px;
-      padding:14px 20px;
-      border-radius:18px;
-      border:2px solid rgba(250,255,0,0.2);
-      background:rgba(0,0,0,0.45);
-      color:var(--boo);
-      font-weight:900;
-      font-size:13px;
-      letter-spacing:1px;
-      text-decoration:none;
-      text-align:center;
-    }
-
-    .ghostbtn{
-      margin-top:8px;
-      padding:12px 18px;
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,0.12);
-      background:rgba(0,0,0,0.4);
-      color:rgba(255,255,255,0.75);
-      font-weight:800;
-      letter-spacing:1px;
-      cursor:pointer;
-    }
-  </style>
+.ghostbtn{
+  margin:8px auto 0;
+  display:block;
+  padding:12px 18px;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(0,0,0,.4);
+  color:rgba(255,255,255,.75);
+  font-weight:800;
+}
+</style>
 </head>
 
 <body>
 <div class="wrap">
-  <div class="brand">BOOCORE</div>
 
-  <div class="center">
-    <div id="now" class="now">—</div>
-    <div id="stack" class="stack"></div>
-  </div>
+<div class="brand">BOOCORE</div>
 
+<div class="center">
+  <div id="now" class="now">—</div>
+  <div id="stack" class="stack"></div>
+</div>
+
+<div class="bottom-fixed">
   <div class="controls">
     <button id="listenBtn" class="ctrl">LISTEN</button>
     <button id="stopBtn" class="ctrl" disabled>STOP</button>
@@ -217,76 +207,73 @@
   <button id="clearBtn" class="ghostbtn">CLEAR HISTORY</button>
 </div>
 
-<!-- WORD PACKS -->
+</div>
+
 <script src="./boocore_words_packs.js"></script>
-
 <script>
-  const nowEl = document.getElementById("now");
-  const stackEl = document.getElementById("stack");
-  const listenBtn = document.getElementById("listenBtn");
-  const stopBtn = document.getElementById("stopBtn");
-  const clearBtn = document.getElementById("clearBtn");
+const nowEl=document.getElementById("now"),
+stackEl=document.getElementById("stack"),
+listenBtn=document.getElementById("listenBtn"),
+stopBtn=document.getElementById("stopBtn"),
+clearBtn=document.getElementById("clearBtn");
 
-  let listening = false;
-  let listenStart = 0;
+let listening=false;
 
-  function timeStr(){
-    const d=new Date();
-    return d.toTimeString().slice(0,5);
-  }
+function timeStr(){
+  const d=new Date();
+  return d.toTimeString().slice(0,5);
+}
 
-  function renderHistory(h){
-    stackEl.innerHTML = h.map(item=>`
-      <div class="row">
-        <div class="w drift" style="animation-delay:${Math.random()*2}s">${item.word}</div>
-        <div class="t">${item.time}</div>
-      </div>
-    `).join("");
-  }
+function render(){
+  const h=JSON.parse(localStorage.getItem("boo_hist")||"[]");
+  stackEl.innerHTML=h.map(i=>`
+    <div class="row">
+      <div class="w" style="animation-delay:${Math.random()*2}s">${i.word}</div>
+      <div class="t">${i.time}</div>
+    </div>`).join("");
+}
 
-  function triggerWord(){
-    const pool = [
-      ...BOOCoreWords.CORE_WORDS,
-      ...BOOCoreWords.PLACES,
-      ...(Math.random()<.4?BOOCoreWords.TONE_TRAITS:[]),
-      ...(Math.random()<.15?BOOCoreWords.PHRASES_MANIFESTATIONS:[])
-    ];
+function trigger(){
+  const pool=[
+    ...BOOCoreWords.CORE_WORDS,
+    ...BOOCoreWords.PLACES,
+    ...(Math.random()<.4?BOOCoreWords.TONE_TRAITS:[]),
+    ...(Math.random()<.15?BOOCoreWords.PHRASES_MANIFESTATIONS:[])
+  ];
+  const w=pool[Math.floor(Math.random()*pool.length)];
 
-    const word = pool[Math.floor(Math.random()*pool.length)];
+  nowEl.classList.remove("mist","wobble","pulse");
+  void nowEl.offsetWidth;
+  nowEl.textContent=w;
+  nowEl.classList.add("mist","wobble","pulse");
 
-    nowEl.classList.remove("mist","wobble","pulse");
-    void nowEl.offsetWidth;
-    nowEl.textContent = word;
-    nowEl.classList.add("mist","wobble","pulse");
+  const h=JSON.parse(localStorage.getItem("boo_hist")||"[]");
+  h.unshift({word:w,time:timeStr()});
+  localStorage.setItem("boo_hist",JSON.stringify(h.slice(0,40)));
+  render();
+}
 
-    const hist = JSON.parse(localStorage.getItem("boo_hist")||"[]");
-    hist.unshift({word,time:timeStr()});
-    localStorage.setItem("boo_hist",JSON.stringify(hist.slice(0,40)));
-    renderHistory(hist);
-  }
+listenBtn.onclick=()=>{
+  listening=true;
+  listenBtn.disabled=true;
+  stopBtn.disabled=false;
+};
 
-  listenBtn.onclick=()=>{
-    listening=true;
-    listenStart=Date.now();
-    listenBtn.disabled=true;
-    stopBtn.disabled=false;
-  };
+stopBtn.onclick=()=>{
+  if(!listening)return;
+  listening=false;
+  listenBtn.disabled=false;
+  stopBtn.disabled=true;
+  setTimeout(trigger,1500+Math.random()*2500);
+};
 
-  stopBtn.onclick=()=>{
-    if(!listening) return;
-    listening=false;
-    listenBtn.disabled=false;
-    stopBtn.disabled=true;
-    setTimeout(triggerWord,1500+Math.random()*2500);
-  };
+clearBtn.onclick=()=>{
+  localStorage.removeItem("boo_hist");
+  stackEl.innerHTML="";
+  nowEl.textContent="—";
+};
 
-  clearBtn.onclick=()=>{
-    localStorage.removeItem("boo_hist");
-    stackEl.innerHTML="";
-    nowEl.textContent="—";
-  };
-
-  renderHistory(JSON.parse(localStorage.getItem("boo_hist")||"[]"));
+render();
 </script>
 </body>
 </html>
